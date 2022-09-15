@@ -2,42 +2,32 @@
 
 namespace App\Entity;
 
-use App\Repository\FranchiseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FranchiseRepository::class)]
+#[ORM\Entity()]
+#[ORM\Table(name: "franchise")]
 class Franchise
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Id()]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(type: "integer")]
+    private int $id;
 
-    #[ORM\Column(length: 60)]
-    private ?string $name = null;
+    #[ORM\Column(type: "string", length: 60)]
+    private string $name;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[ORM\Column(type: "string", length: 255)]
+    private string $email;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $password;
 
-    #[ORM\OneToMany(mappedBy: 'franchise_id', targetEntity: Salle::class, orphanRemoval: true)]
-    private Collection $salles_id;
-
-    public function __construct()
-    {
-        $this->salles_id = new ArrayCollection();
-    }
-
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -49,7 +39,7 @@ class Franchise
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -61,7 +51,7 @@ class Franchise
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -69,36 +59,6 @@ class Franchise
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Salle>
-     */
-    public function getSallesId(): Collection
-    {
-        return $this->salles_id;
-    }
-
-    public function addSallesId(Salle $sallesId): self
-    {
-        if (!$this->salles_id->contains($sallesId)) {
-            $this->salles_id->add($sallesId);
-            $sallesId->setFranchiseId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSallesId(Salle $sallesId): self
-    {
-        if ($this->salles_id->removeElement($sallesId)) {
-            // set the owning side to null (unless already changed)
-            if ($sallesId->getFranchiseId() === $this) {
-                $sallesId->setFranchiseId(null);
-            }
-        }
 
         return $this;
     }
