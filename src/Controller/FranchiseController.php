@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FranchiseController extends AbstractController
 {
-    #[Route('/franchise', name:"franchise-home")]
+    #[Route('/franchise', name:'franchise-home')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Franchise::class);
@@ -33,7 +33,7 @@ class FranchiseController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($franchise);
             $em->flush();
-            return $this->redirectToRoute("franchise-home");
+            return $this->redirectToRoute('franchise-home');
         }
         return $this->render('franchise/form.html.twig', [
             "franchise_form" => $form->createView()
