@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <a  class="btn btn-primary mt-3" href="/salle/new">Nouvelle Salle</a>
+    <a  class="btn btn-primary mt-3" href="/salle/new"><i class="fa-solid fa-plus"></i> Salle</a>
     
     <div class="d-flex justify-content-around flex-wrap container mt-5">
         {% for salle in salles %}
@@ -11,8 +11,8 @@
                     <h5 class="card-title"> Contact: {{ salle.email }} </h5>
                     <h5 class="card-title"> Adresse: {{ salle.adress }} </h5>
                     <h6 class="card-title"> Franchise : A TROUVE </h6>
-                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger">Supprimer</a>
-                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
             </div> 
         {% endfor %}

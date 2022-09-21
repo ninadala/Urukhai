@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <a  class="btn btn-primary mt-3" href="/franchise/new">Nouvelle Franchise</a>
+    <a  class="btn btn-primary mt-3" href="/franchise/new"><i class="fa-solid fa-plus"></i> Franchise</a>
     
     <div class="d-flex justify-content-around flex-wrap container mt-5">
         {% for franchise in franchises %}
@@ -10,9 +10,9 @@
                     <h3 class="card-title"> {{ franchise.name }} </h3>
                     <h5 class="card-title"> {{ franchise.email }} </h5>
                     <p class="card-text">A TROUVER liste des salles</p>
-                    <a href="{{ path('delete-franchise', {'id':franchise.id}) }}" class="btn btn-danger">Supprimer</a>
-                    <a href="{{ path('edit-franchise', {'id':franchise.id}) }}" class="btn btn-warning">Modifier</a>
-                    <a href="{{ path('fiche-franchise', {'id':franchise.id}) }}" class="btn btn-primary">Voir détails</a>
+                    <a href="{{ path('delete-franchise', {'id':franchise.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{{ path('edit-franchise', {'id':franchise.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="{{ path('fiche-franchise', {'id':franchise.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
                 </div>
             </div> 
         {% endfor %}

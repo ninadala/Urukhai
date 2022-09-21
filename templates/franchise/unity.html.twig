@@ -4,6 +4,7 @@
     <div class="container">
         <h1>Franchise : {{ franchise.name }} </h1>
         <h4> Email de contact : {{ franchise.email }} </h4>
+        <h6>Liste des salles :</h6>
         <ul>
             {% for salle in salles %}
             <li> {{ salle.name }} </li>
