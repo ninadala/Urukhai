@@ -64,4 +64,16 @@ class FranchiseController extends AbstractController
             "franchise_form" => $form->createView()
         ]);
     }
+
+    #[Route('/franchise/fiche/{id<\d+>}', name:'fiche-franchise')]
+    public function fiche(int $id, ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(Franchise::class);
+        $franchise = $repository->find($id);
+        $salles = $franchise->getSalles();
+        return $this->render('franchise/unity.html.twig', [
+            'franchise' => $franchise,
+            'salles' => $salles
+        ]);
+    }
 }

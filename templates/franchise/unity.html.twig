@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Franchise : {{ franchise.name }} </h1>
+        <h4> Email de contact : {{ franchise.email }} </h4>
+        <ul>
+            {% for salle in salles %}
+            <li> {{ salle.name }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+{% endblock %}

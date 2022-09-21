@@ -9,9 +9,10 @@
                 <div class="card-body">
                     <h3 class="card-title"> {{ franchise.name }} </h3>
                     <h5 class="card-title"> {{ franchise.email }} </h5>
-                    <h5 class="card-title"> {{ franchise.password }} </h5>
+                    <p class="card-text">A TROUVER liste des salles</p>
                     <a href="{{ path('delete-franchise', {'id':franchise.id}) }}" class="btn btn-danger">Supprimer</a>
                     <a href="{{ path('edit-franchise', {'id':franchise.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('fiche-franchise', {'id':franchise.id}) }}" class="btn btn-primary">Voir détails</a>
                 </div>
             </div> 
         {% endfor %}
