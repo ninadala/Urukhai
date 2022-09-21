@@ -39,7 +39,7 @@ class SalleType extends AbstractType
             ])
             ->add('franchise_id', EntityType::class, [
                 'class' => Franchise::class,
-                'choice_label'=> 'id'
+                'choice_label'=> 'name'
             ]);
     }
 

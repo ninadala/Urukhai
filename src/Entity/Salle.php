@@ -84,7 +84,7 @@ class Salle
 
     public function getFranchiseId(): ?Franchise
     {
-        return $this->franchise_name;
+        return $this->franchise_id;
     }
 
     public function setFranchiseId(?Franchise $franchise_id): self

@@ -7,13 +7,12 @@
         {% for salle in salles %}
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h3 class="card-title"> {{ salle.name }} </h3>
-                    <h5 class="card-title"> {{ salle.email }} </h5>
-                    <h5 class="card-title"> {{ salle.password }} </h5>
-                    <h5 class="card-title"> {{ salle.adress }} </h5>
+                    <h3 class="card-title"> Nom: {{ salle.name }} </h3>
+                    <h5 class="card-title"> Contact: {{ salle.email }} </h5>
+                    <h5 class="card-title"> Adresse: {{ salle.adress }} </h5>
                     <h6 class="card-title"> Franchise : </h6>
-                    {# <a href="{{ path('delete-franchise', {'id':franchise.id}) }}" class="btn btn-danger">Supprimer</a>
-                    <a href="{{ path('edit-franchise', {'id':franchise.id}) }}" class="btn btn-warning">Modifier</a> #}
+                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning">Modifier</a>
                 </div>
             </div> 
         {% endfor %}

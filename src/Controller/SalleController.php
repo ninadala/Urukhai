@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Salle;
+use App\Form\FranchiseType;
 use App\Form\SalleType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,7 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('salle/new')]
+    #[Route('/salle/new')]
     public function create(Request $request, ManagerRegistry $doctrine) : Response
     {
         $salle = new Salle();
@@ -38,4 +39,33 @@ class SalleController extends AbstractController
             "salle_form" => $form->createView()
         ]);
     }
+
+    #[Route('/salle/delete/{id<\d+>}', name:"delete-salle")]
+    public function delete(Salle $salle, ManagerRegistry $doctrine) : Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($salle);
+        $em->flush();
+
+        return $this->redirectToRoute("salle-home");
+    }
+
+    #[Route('/salle/edit/{id<\d+>}', name:"edit-salle")]
+    public function update(Salle $salle, Request $request, ManagerRegistry $doctrine) : Response
+    {
+        $form = $this->createForm(SalleType::class, $salle);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $doctrine->getManager();
+            $em->flush();
+            return $this->redirectToRoute('salle-home');
+        }
+        return $this->render('salle/form.html.twig', [
+            "salle_form" => $form->createView()
+        ]);
+    }
+
+
+
+
 }
