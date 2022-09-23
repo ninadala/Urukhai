@@ -37,7 +37,7 @@ class SalleType extends AbstractType
                 "label" => "Adresse postale",
                 "required" => true
             ])
-            ->add('franchise_id', EntityType::class, [
+            ->add('franchise', EntityType::class, [
                 'class' => Franchise::class,
                 'choice_label'=> 'name'
             ]);

@@ -5,7 +5,7 @@
     
     <div class="d-flex justify-content-around flex-wrap container mt-5">
         {% for salle in salles %}
-            <div class="card" style="width: 18rem;">
+            <div class="card mb-3" style="width: 18rem;">
                 <div class="card-body">
                     <h3 class="card-title"> Nom: {{ salle.name }} </h3>
                     <h5 class="card-title"> Contact: {{ salle.email }} </h5>
@@ -13,6 +13,9 @@
                     <h6 class="card-title"> Franchise : A TROUVE </h6>
                     <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"> Franchise : {{salle.franchise.name}}</small>
                 </div>
             </div> 
         {% endfor %}

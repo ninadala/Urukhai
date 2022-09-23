@@ -25,9 +25,9 @@ class Salle
     #[ORM\Column(length: 255)]
     private ?string $adress = null;
 
-    #[ORM\ManyToOne(inversedBy: 'salles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Franchise $franchise_id = null;
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Franchise", inversedBy: "salles")]
+    #[ORM\JoinColumn(name:"franchise_id", referencedColumnName:"id", onDelete:"CASCADE")]
+    private $franchise = null;
 
     public function getId(): ?int
     {
@@ -82,15 +82,16 @@ class Salle
         return $this;
     }
 
-    public function getFranchiseId(): ?Franchise
+    public function getFranchise()
     {
-        return $this->franchise_id;
+        return $this->franchise;
     }
 
-    public function setFranchiseId(?Franchise $franchise_id): self
+    public function setFranchise($franchise): self
     {
-        $this->franchise_id = $franchise_id;
+        $this->franchise = $franchise;
 
         return $this;
     }
+
 }

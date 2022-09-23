@@ -24,7 +24,7 @@ class Franchise
     #[ORM\Column(type: "string", length: 255)]
     private ?string $password;
 
-    #[ORM\OneToMany(mappedBy: 'franchise_id', targetEntity: Salle::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'franchise', targetEntity: Salle::class, orphanRemoval: true)]
     private Collection $salles;
 
     public function __construct()
@@ -85,7 +85,7 @@ class Franchise
     {
         if (!$this->salles->contains($salle)) {
             $this->salles->add($salle);
-            $salle->setFranchiseId($this);
+            $salle->setFranchise($this);
         }
 
         return $this;
@@ -95,8 +95,8 @@ class Franchise
     {
         if ($this->salles->removeElement($salle)) {
             // set the owning side to null (unless already changed)
-            if ($salle->getFranchiseId() === $this) {
-                $salle->setFranchiseId(null);
+            if ($salle->getFranchise() === $this) {
+                $salle->setFranchise(null);
             }
         }
 
