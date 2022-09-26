@@ -42,7 +42,7 @@ class SalleType extends AbstractType
             'data_class' => Salle::class,
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
-            'csrf_toekn_id' => 'post_item',
+            'csrf_token_id' => 'post_item',
         ]);
     }
 }

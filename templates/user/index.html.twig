@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<a  class="btn btn-primary mt-3" href="/user/new"><i class="fa-solid fa-plus"></i> Utilisateur</a>
+
+<div class="container mt-5">
+
+    {% for user in users %}
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                {{ user.lastname }} {{ user.firstname }} : {{ user.email }} _ {{ user.roles[0] }}
+            </a>
+            {# <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled link item</a> #}
+        </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

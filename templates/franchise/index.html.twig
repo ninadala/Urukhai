@@ -9,6 +9,7 @@
             <div class="card mb-3" style="width: 18rem;">
                 <div class="card-body">
                     <h3 class="card-title"> {{ franchise.name }} </h3>
+                    <h6 class="card-title"> Administrateur: {{ franchise.user.lastname }} {{ franchise.user.firstname }} </h6>
 
                     {% if franchise.salles is empty %}
                         <p>Pas de salles</p>

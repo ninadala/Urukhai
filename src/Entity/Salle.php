@@ -26,6 +26,9 @@ class Salle
     #[ORM\JoinColumn(name:"franchise_id", referencedColumnName:"id", onDelete:"CASCADE")]
     private $franchise = null;
 
+    #[ORM\ManyToOne]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +86,18 @@ class Salle
     public function setFranchise($franchise): self
     {
         $this->franchise = $franchise;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

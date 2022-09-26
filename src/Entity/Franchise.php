@@ -21,6 +21,9 @@ class Franchise
     #[ORM\OneToMany(mappedBy: 'franchise', targetEntity: Salle::class, orphanRemoval: true)]
     private Collection $salles;
 
+    #[ORM\ManyToOne]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->salles = new ArrayCollection();
@@ -69,6 +72,18 @@ class Franchise
                 $salle->setFranchise(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
