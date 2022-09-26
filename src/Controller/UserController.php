@@ -40,40 +40,39 @@ class UserController extends AbstractController
         ]);
     }
 
-    // #[Route('/franchise/delete/{id<\d+>}', name:"delete-franchise")]
-    // public function delete(Franchise $franchise, ManagerRegistry $doctrine): Response
-    // {
-    //     $em = $doctrine->getManager();
-    //     $em->remove($franchise);
-    //     $em->flush();
+    #[Route('/user/delete/{id<\d+>}', name:"delete-user")]
+    public function delete(User $user, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($user);
+        $em->flush();
 
-    //     return $this->redirectToRoute("franchise-home");
-    // }
+        return $this->redirectToRoute("user-home");
+    }
 
-    // #[Route('/franchise/edit/{id<\d+>}', name:"edit-franchise")]
-    // public function update(Franchise $franchise, Request $request, ManagerRegistry $doctrine): Response
+    // #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
+    // public function update(User $user, Request $request, ManagerRegistry $doctrine): Response
     // {
-    //     $form = $this->createForm(FranchiseType::class, $franchise);
+    //     $form = $this->createForm(UserType::class, $user);
     //     $form->handleRequest($request);
     //     if ($form->isSubmitted() && $form->isValid()) {
     //         $em = $doctrine->getManager();
     //         $em->flush();
-    //         return $this->redirectToRoute("franchise-home");
+    //         return $this->redirectToRoute("user-home");
     //     }
-    //     return $this->render('franchise/form.html.twig', [
-    //         "franchise_form" => $form->createView()
+    //     return $this->render('user/form.html.twig', [
+    //         "user_form" => $form->createView()
     //     ]);
     // }
 
-    // #[Route('/franchise/fiche/{id<\d+>}', name:'fiche-franchise')]
-    // public function fiche(int $id, ManagerRegistry $doctrine): Response
-    // {
-    //     $repository = $doctrine->getRepository(Franchise::class);
-    //     $franchise = $repository->find($id);
-    //     $salles = $franchise->getSalles();
-    //     return $this->render('franchise/unity.html.twig', [
-    //         'franchise' => $franchise,
-    //         'salles' => $salles
-    //     ]);
-    // }
+    #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
+    public function fiche(int $id, ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(User::class);
+        $user = $repository->find($id);
+        // $salles = $franchise->getSalles();
+        return $this->render('user/unity.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }
