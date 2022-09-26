@@ -18,12 +18,6 @@ class Franchise
     #[ORM\Column(type: "string", length: 60)]
     private string $name;
 
-    #[ORM\Column(type: "string", length: 255)]
-    private string $email;
-
-    #[ORM\Column(type: "string", length: 255)]
-    private ?string $password;
-
     #[ORM\OneToMany(mappedBy: 'franchise', targetEntity: Salle::class, orphanRemoval: true)]
     private Collection $salles;
 
@@ -45,30 +39,6 @@ class Franchise
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }

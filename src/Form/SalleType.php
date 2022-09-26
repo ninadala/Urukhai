@@ -6,9 +6,6 @@ use App\Entity\Franchise;
 use App\Entity\Salle;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,16 +22,12 @@ class SalleType extends AbstractType
                 "required" => true,
                 "constraints" => [new Length(["min" => 3, "max" => 60, "minMessage" => "Le champ nom ne peut pas contenir moins de 3 caractères", "maxMessage" => "Le champ nom ne peut pas contenir plus de 60 caractères"])]
             ])
-            ->add('email', EmailType::class, [
-                "label" => "Email",
-                "required" => true,
-            ])
-            ->add('password', TextType::class, [
-                "label" => "Mot de passe",
+            ->add('address', TextType::class, [
+                "label" => "Adresse postale",
                 "required" => true
             ])
-            ->add('adress', TextType::class, [
-                "label" => "Adresse postale",
+            ->add('capacity', IntegerType::class, [
+                "label" => "Capacité de la salle",
                 "required" => true
             ])
             ->add('franchise', EntityType::class, [

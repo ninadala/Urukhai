@@ -17,13 +17,10 @@ class Salle
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private ?string $address = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $adress = null;
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?int $capacity;
 
     #[ORM\ManyToOne(targetEntity:"App\Entity\Franchise", inversedBy: "salles")]
     #[ORM\JoinColumn(name:"franchise_id", referencedColumnName:"id", onDelete:"CASCADE")]
@@ -46,38 +43,34 @@ class Salle
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getAddress(): ?string
     {
-        return $this->email;
+        return $this->address;
     }
 
-    public function setEmail(string $email): self
+    public function setAddress(string $address): self
     {
-        $this->email = $email;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+        /**
+     * Get the value of capacity
+     */ 
+    public function getCapacity()
     {
-        return $this->password;
+        return $this->capacity;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * Set the value of capacity
+     *
+     * @return  self
+     */ 
+    public function setCapacity($capacity)
     {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getAdress(): ?string
-    {
-        return $this->adress;
-    }
-
-    public function setAdress(string $adress): self
-    {
-        $this->adress = $adress;
+        $this->capacity = $capacity;
 
         return $this;
     }
@@ -93,5 +86,4 @@ class Salle
 
         return $this;
     }
-
 }
