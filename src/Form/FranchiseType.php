@@ -3,8 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Franchise;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +21,11 @@ class FranchiseType extends AbstractType
                 "label" => "Nom",
                 "required" => true,
                 "constraints" => [new Length(["min" => 5, "max" => 60, "minMessage" => "Le champ nom ne peut pas être vide", "maxMessage" => "Le champ nom ne peut pas faire plus de 60 caractères"])]
+            ])
+            ->add('user', EntityType::class, [
+                'label' =>  "Administrateur",
+                'class' => User::class,
+                'choice_label'=> 'username'
             ]);
     }
 

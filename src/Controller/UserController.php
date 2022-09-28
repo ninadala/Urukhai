@@ -50,20 +50,20 @@ class UserController extends AbstractController
         return $this->redirectToRoute("user-home");
     }
 
-    // #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
-    // public function update(User $user, Request $request, ManagerRegistry $doctrine): Response
-    // {
-    //     $form = $this->createForm(UserType::class, $user);
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $em = $doctrine->getManager();
-    //         $em->flush();
-    //         return $this->redirectToRoute("user-home");
-    //     }
-    //     return $this->render('user/form.html.twig', [
-    //         "user_form" => $form->createView()
-    //     ]);
-    // }
+    #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
+    public function update(User $user, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $doctrine->getManager();
+            $em->flush();
+            return $this->redirectToRoute("user-home");
+        }
+        return $this->render('user/form.html.twig', [
+            "user_form" => $form->createView()
+        ]);
+    }
 
     #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
     public function fiche(int $id, ManagerRegistry $doctrine): Response
