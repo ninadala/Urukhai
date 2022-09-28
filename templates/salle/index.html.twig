@@ -1,23 +1,21 @@
 {% extends "base.html.twig" %}
 
-{% block body %}
-    <a  class="btn btn-primary mt-3" href="/salle/new"><i class="fa-solid fa-plus"></i> Salle</a>
-    
-    <div class="d-flex justify-content-around flex-wrap container mt-5">
-        {% for salle in salles %}
-            <div class="card mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h4 class="card-title"> Nom: {{ salle.name }} </h4>
-                    <h6 class="card-title"> Adresse: {{ salle.address }} </h6>
-                    <h6 class="card-title"> Capacité: {{ salle.capacity }} places </h6>
-                    <h6 class="card-title"> Administrateur de la salle: {{ salle.user.lastname }} {{ salle.user.firstname }}</h6>
-                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted"> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }}>{{salle.franchise.name}}</a> </small>
-                </div>
-            </div> 
-        {% endfor %}
-    </div>
+{% block body %}    
+<div class="d-flex justify-content-around flex-wrap container mt-5">
+    {% for salle in salles %}
+        <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h4 class="card-title"> Nom: {{ salle.name }} </h4>
+                <h6 class="card-title"> Adresse: {{ salle.address }} </h6>
+                <h6 class="card-title"> Capacité: {{ salle.capacity }} places </h6>
+                <h6 class="card-title"> Administrateur de la salle: {{ salle.user.lastname }} {{ salle.user.firstname }}</h6>
+                <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }}>{{salle.franchise.name}}</a> </small>
+            </div>
+        </div> 
+    {% endfor %}
+</div>
 {% endblock %}

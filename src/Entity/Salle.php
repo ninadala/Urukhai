@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SalleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SalleRepository::class)]
@@ -28,6 +30,14 @@ class Salle
 
     #[ORM\ManyToOne]
     private ?User $user = null;
+
+    #[ORM\ManyToMany(targetEntity: Permission::class, mappedBy: 'salle')]
+    private Collection $permissions;
+
+    public function __construct()
+    {
+        $this->permissions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -98,6 +108,33 @@ class Salle
     public function setUser($user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Permission>
+     */
+    public function getPermissions(): Collection
+    {
+        return $this->permissions;
+    }
+
+    public function addPermission(Permission $permission): self
+    {
+        if (!$this->permissions->contains($permission)) {
+            $this->permissions->add($permission);
+            $permission->addSalle($this);
+        }
+
+        return $this;
+    }
+
+    public function removePermission(Permission $permission): self
+    {
+        if ($this->permissions->removeElement($permission)) {
+            $permission->removeSalle($this);
+        }
 
         return $this;
     }

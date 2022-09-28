@@ -24,9 +24,13 @@ class Franchise
     #[ORM\ManyToOne]
     private ?User $user = null;
 
+    #[ORM\ManyToMany(targetEntity: Permission::class, mappedBy: 'franchise')]
+    private Collection $permissions;
+
     public function __construct()
     {
         $this->salles = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -84,6 +88,33 @@ class Franchise
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Permission>
+     */
+    public function getPermissions(): Collection
+    {
+        return $this->permissions;
+    }
+
+    public function addPermission(Permission $permission): self
+    {
+        if (!$this->permissions->contains($permission)) {
+            $this->permissions->add($permission);
+            $permission->addFranchise($this);
+        }
+
+        return $this;
+    }
+
+    public function removePermission(Permission $permission): self
+    {
+        if ($this->permissions->removeElement($permission)) {
+            $permission->removeFranchise($this);
+        }
 
         return $this;
     }

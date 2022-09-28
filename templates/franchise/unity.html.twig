@@ -1,8 +1,10 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="container">
+
+   <div class="container">
         <h1>Franchise : {{ franchise.name }} </h1>
+        <a  class="btn btn-primary mt-3" href="/salle/new"><i class="fa-solid fa-plus"></i> Salle</a>
         <h6>Liste des salles :</h6>
         <ul>
             {% for salle in salles %}
