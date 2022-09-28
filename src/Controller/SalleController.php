@@ -65,8 +65,4 @@ class SalleController extends AbstractController
             "salle_form" => $form->createView()
         ]);
     }
-
-
-
-
 }

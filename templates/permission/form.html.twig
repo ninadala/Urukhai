@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ form_start(permission_form)}}
+    {{ form_rest(permission_form)}}
+        <input class="btn btn-primary" type="submit" value="Valider">
+{% endblock %}

@@ -2,29 +2,25 @@
 
 {% block body %}
 
-<a  class="btn btn-primary mt-3" href="/permission"><i class="fa-solid fa-plus"></i> Permission</a>
+<a  class="btn btn-primary mt-3" href="/permission/new"><i class="fa-solid fa-plus"></i> Permission</a>
 
 <div class="container mt-5">
 
     {% for permission in permissions %}
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ permission.name }} : {{ permisison.description }}
+                {{ permission.name }} : {{ permission.description }}
                 <div class="d-flex">
                     <span class="badge bg-danger rounded-pill">
-                        {# <a href="{{ path('delete-user', {'id':user.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a> #}
+                        <a href="{{ path('delete-permission', {'id':permission.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </span>
                     <span class="badge bg-warning rounded-pill">
-                        {# <a href="{{ path('edit-user', {'id':user.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a> #}
-                    </span>
-                    <span class="badge bg-primary rounded-pill">
-                    {# <a href="{{ path('fiche-user', {'id':user.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a> #}
+                        <a href="{{ path('edit-permission', {'id':permission.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     </span>
                </div>
                 
             </li>
         </ul>
-        {# <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled link item</a> #}
     {% endfor %}
 
 </div>

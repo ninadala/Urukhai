@@ -32,6 +32,7 @@ class Permission
 
     public function __construct()
     {
+        $this->activated = false;
         $this->salle = new ArrayCollection();
         $this->franchise = new ArrayCollection();
     }
