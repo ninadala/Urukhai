@@ -21,9 +21,6 @@ class Permission
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?bool $activated = null;
-
     #[ORM\ManyToMany(targetEntity: Salle::class, inversedBy: 'permissions')]
     private Collection $salle;
 
@@ -32,7 +29,6 @@ class Permission
 
     public function __construct()
     {
-        $this->activated = false;
         $this->salle = new ArrayCollection();
         $this->franchise = new ArrayCollection();
     }
@@ -62,18 +58,6 @@ class Permission
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function isActivated(): ?bool
-    {
-        return $this->activated;
-    }
-
-    public function setActivated(bool $activated): self
-    {
-        $this->activated = $activated;
 
         return $this;
     }

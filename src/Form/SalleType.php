@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Franchise;
+use App\Entity\Permission;
 use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

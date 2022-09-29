@@ -9,6 +9,9 @@
                 <h6 class="card-title"> Adresse: {{ salle.address }} </h6>
                 <h6 class="card-title"> Capacité: {{ salle.capacity }} places </h6>
                 <h6 class="card-title"> Administrateur de la salle: {{ salle.user.lastname }} {{ salle.user.firstname }}</h6>
+                <div class="d-flex">
+                        <p> Permissions : {{ salle.permissions|length }}</p>
+                </div>
                 <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                 <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
             </div>

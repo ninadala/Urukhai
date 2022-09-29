@@ -71,9 +71,11 @@ class FranchiseController extends AbstractController
         $repository = $doctrine->getRepository(Franchise::class);
         $franchise = $repository->find($id);
         $salles = $franchise->getSalles();
+        $permissions = $franchise->getPermissions();
         return $this->render('franchise/unity.html.twig', [
             'franchise' => $franchise,
-            'salles' => $salles
+            'salles' => $salles,
+            'permissions' => $permissions
         ]);
     }
 }

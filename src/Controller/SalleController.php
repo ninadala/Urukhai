@@ -18,7 +18,6 @@ class SalleController extends AbstractController
     {
         $repository = $doctrine->getRepository(Salle::class);
         $salles = $repository->findAll();
-        dump($salles);
         return $this->render('salle/index.html.twig', [
             'salles' => $salles,
         ]);
