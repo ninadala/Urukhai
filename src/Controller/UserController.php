@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\LoginType;
 use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
@@ -23,6 +25,31 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/login', name: 'login')]
+    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUserName = $authenticationUtils->getLastUsername();
+
+        $form = $this->createForm(LoginType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+        }
+        
+        return $this->render('user/login.html.twig', [
+            'error' => $error,
+            'last_username' => $lastUserName,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/logout', name: 'logout')]
+    public function logout()
+    {
+        
+    }
+
     #[Route('/user/new')]
     public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine): Response
     {
@@ -33,7 +60,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('user-home');
+            return $this->redirectToRoute('home');
         }
         return $this->render('user/form.html.twig', [
             "user_form" => $form->createView()
