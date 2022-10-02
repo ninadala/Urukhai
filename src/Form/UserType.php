@@ -49,15 +49,16 @@ class UserType extends AbstractType
                 "required" => true,
                 "constraints" => [ new Email(["message" => "Vous devez entrer un email valide"])]
             ])
-            // ->add('roles', ChoiceType::class, [
-            //     "label" => "Rôle",
-            //     "required" => true,
-            //     'choices' => [
-            //         'Admin URUKHAI' => 'ROLE_ADMIN'(1),
-            //         'Franchise' => 'ROLE_USER'(2),
-            //         'Salle' => 'ROLE_USER'(2)
-            //     ]
-            // ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Admin URUKHAI' => 'ROLE_ADMIN',
+                    'Client' => 'ROLE_USER'
+                ],
+                "label" => "Rôles",
+                "required" => true,
+                "expanded" => true,
+                "multiple" => true
+            ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe",
                 "required" => true,

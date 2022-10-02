@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\UserType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +51,8 @@ class UserController extends AbstractController
         
     }
 
-    #[Route('/user/new')]
+    #[Route('/user/new', name:"new-user")]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine): Response
     {
         $user = new User($userPasswordHasher);
@@ -60,7 +62,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('user-home');
         }
         return $this->render('user/form.html.twig', [
             "user_form" => $form->createView()
@@ -68,6 +70,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/delete/{id<\d+>}', name:"delete-user")]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(User $user, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
@@ -77,20 +80,21 @@ class UserController extends AbstractController
         return $this->redirectToRoute("user-home");
     }
 
-    #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
-    public function update(User $user, Request $request, ManagerRegistry $doctrine): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $doctrine->getManager();
-            $em->flush();
-            return $this->redirectToRoute("user-home");
-        }
-        return $this->render('user/form.html.twig', [
-            "user_form" => $form->createView()
-        ]);
-    }
+    // #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
+    // public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher): Response
+    // {
+    //     $form = $this->createForm(UserType::class, $user);
+    //     $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $em = $doctrine->getManager();
+    //         $em->persist($user);
+    //         $em->flush();
+    //         return $this->redirectToRoute("user-home");
+    //     }
+    //     return $this->render('user/form.html.twig', [
+    //         "user_form" => $form->createView()
+    //     ]);
+    // }
 
     #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
     public function fiche(int $id, ManagerRegistry $doctrine): Response
