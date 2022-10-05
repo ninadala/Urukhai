@@ -26,7 +26,7 @@ class Salle
 
     #[ORM\ManyToOne(targetEntity:"App\Entity\Franchise", inversedBy: "salles")]
     #[ORM\JoinColumn(name:"franchise_id", referencedColumnName:"id", onDelete:"CASCADE")]
-    private $franchise = null;
+    private ?Franchise $franchise = null;
 
     #[ORM\ManyToOne]
     private ?User $user = null;

@@ -34,6 +34,13 @@ class PermissionType extends AbstractType
                     "maxMessage" => "Ce champ ne peut pas comporter plus de 255 caractères !"]
                 )]
             ])
+            ->add('franchise', EntityType::class, [
+                'label' => 'Franchise',
+                'class' => Franchise::class,
+                'choice_label'=> 'name',
+                'expanded' => true,
+                'multiple' => true
+            ])
             ->add('salle', EntityType::class, [
                 'label' => 'Salles',
                 'class' => Salle::class,
@@ -41,13 +48,7 @@ class PermissionType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ])
-            ->add('franchise', EntityType::class, [
-                'label' => 'Franchise',
-                'class' => Franchise::class,
-                'choice_label'=> 'name',
-                'expanded' => true,
-                'multiple' => true
-            ]);
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

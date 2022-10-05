@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Franchise;
+use App\Entity\Permission;
 use App\Form\FranchiseType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +26,7 @@ class FranchiseController extends AbstractController
     }
 
     #[Route('/franchise/new')]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
         $franchise = new Franchise();
@@ -41,6 +44,7 @@ class FranchiseController extends AbstractController
     }
 
     #[Route('/franchise/delete/{id<\d+>}', name:"delete-franchise")]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Franchise $franchise, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
@@ -51,6 +55,7 @@ class FranchiseController extends AbstractController
     }
 
     #[Route('/franchise/edit/{id<\d+>}', name:"edit-franchise")]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(Franchise $franchise, Request $request, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(FranchiseType::class, $franchise);
@@ -69,13 +74,19 @@ class FranchiseController extends AbstractController
     public function fiche(int $id, ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Franchise::class);
+        $repositoryPermissions = $doctrine->getRepository(Permission::class);
         $franchise = $repository->find($id);
         $salles = $franchise->getSalles();
+        $user = $franchise->getUser();
+        $permGlobales = $repositoryPermissions->findAll();
         $permissions = $franchise->getPermissions();
+        dump($salles);
         return $this->render('franchise/unity.html.twig', [
             'franchise' => $franchise,
             'salles' => $salles,
-            'permissions' => $permissions
+            'user' => $user,
+            'permissions' => $permissions,
+            'permGlobales' => $permGlobales
         ]);
     }
 }

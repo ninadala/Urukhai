@@ -11,22 +11,20 @@
     {% for user in users %}
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ user.lastname }} {{ user.firstname }} : {{ user.email }} {{ user.roles[0] }}
+                {{ user.lastname }} {{ user.firstname }} : {{ user.email }} {% if user.roles[0] == 'ROLE_ADMIN' %} - URUK-HAÏ - {% else %} - CLIENT - {% endif %}
                 
-                {% if is_granted('ROLE_ADMIN') %}
-                <div class="d-flex">
-                    <span class="badge bg-danger rounded-pill">
-                        <a href="{{ path('delete-user', {'id':user.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                    </span>
-                    {# <span class="badge bg-warning rounded-pill">
-                        <a href="{{ path('edit-user', {'id':user.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                    </span> #}
-                </div>
-                {% endif %}
-                <div class="d-flex">    
-                    <span class="badge bg-primary rounded-pill">
-                    <a href="{{ path('fiche-user', {'id':user.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
-                    </span>
+                 <div class="d-flex">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <span class="badge bg-danger rounded-pill">
+                            <a href="{{ path('delete-user', {'id':user.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        </span>
+                        {# <span class="badge bg-warning rounded-pill">
+                            <a href="{{ path('edit-user', {'id':user.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </span> #}
+                    {% endif %}   
+                        <span class="badge bg-primary rounded-pill">
+                        <a href="{{ path('fiche-user', {'id':user.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+                        </span>
                </div>
                 
             </li>

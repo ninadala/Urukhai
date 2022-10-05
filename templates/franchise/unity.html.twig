@@ -4,26 +4,44 @@
 
    <div class="container">
         <h1>Franchise : {{ franchise.name }} </h1>
+        <h4>Administrateur : {{ user.firstname }} {{ user.lastname }}</h4>
+        {% if is_granted('ROLE_ADMIN') %}
         <a  class="btn btn-primary mt-3" href="/salle/new"><i class="fa-solid fa-plus"></i> Salle</a>
-        <h6>Liste des salles :</h6>
-        <ul>
-            {% for salle in salles %}
-            <li> {{ salle.name }} </li>
-            {% endfor %}
-        </ul>
-
-        <div class="card">
-            <div class="card-header">
-                Permissions globales de la franchise
+        {% endif %}
+        
+        <div class="d-block d-md-flex">
+            <div class="card mx-3 my-3" style="width: 20rem;">
+                <div class="card-header">
+                    Liste des salles :
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for salle in salles %}
+                    <li class="list-group-item"><a href="{{'/salle/fiche/' ~ salle.id }}">{{ salle.name }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                {% for permission in permissions %}
-                    <li class="list-group-item">{{ permission.name }}</li>
-                {% endfor %}
-            </ul>
+
+            <div class="card mx-3 my-3" style="width: 20rem;">
+                <div class="card-header">
+                    Permissions globales de la franchise :
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for permGlobale in permGlobales %}
+                        <li class="list-group-item">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                 {% for permission in permissions %} 
+                                    {% if permGlobale.name is same as(permission.name) %} 
+                                    checked    
+                                    {% endif %} 
+                                {% endfor %}>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">{{ permGlobale.name }}</label>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-
-
     </div>
     
 {% endblock %}

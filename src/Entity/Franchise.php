@@ -27,6 +27,9 @@ class Franchise
     #[ORM\ManyToMany(targetEntity: Permission::class, mappedBy: 'franchise')]
     private Collection $permissions;
 
+    #[ORM\Column]
+    private ?bool $activated = null;
+
     public function __construct()
     {
         $this->salles = new ArrayCollection();
@@ -115,6 +118,18 @@ class Franchise
         if ($this->permissions->removeElement($permission)) {
             $permission->removeFranchise($this);
         }
+
+        return $this;
+    }
+
+    public function isActivated(): ?bool
+    {
+        return $this->activated;
+    }
+
+    public function setActivated(bool $activated): self
+    {
+        $this->activated = $activated;
 
         return $this;
     }

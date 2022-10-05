@@ -5,22 +5,24 @@
         <div class="alert alert-danger"> {{ error.messageKey }} </div>
     {% endif %}
     
-    <form method="post" class="container">
-        <label for="username" class="form-label">Nom d'utilisateur</label>
-        <input id="username" type="text" name="_username" value="{{ last_username }}" class="form-control">
-        <label for="password" class="form-label">Mot de Passe</label>
-        <div class="input-group">
-            <input id="user_password" type="password" name="_password" class="form-control">
-            <span role="button" class="input-group-text" onClick="togglePassword()">
-                    <i class="bi bi-eye" id="eye"></i>
-                    <i class="bi bi-eye-slash d-none" id="eye-slash"></i>
-            </span>
-        </div>
-        <input type="hidden" name="_target_path" value="/">
-        <input type="submit" value="Connexion" class="btn btn-success mt-2">
-    </form>
+    <div class="d-block centered-element">
+        <form method="post" class="container">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input id="username" type="text" name="_username" value="{{ last_username }}" class="form-control">
+            <label for="password" class="form-label">Mot de Passe</label>
+            <div class="input-group">
+                <input id="user_password" type="password" name="_password" class="form-control">
+                <span role="button" class="input-group-text" onClick="togglePassword()">
+                        <i class="bi bi-eye" id="eye"></i>
+                        <i class="bi bi-eye-slash d-none" id="eye-slash"></i>
+                </span>
+            </div>
+            <input type="hidden" name="_target_path" value="/">
+            <input type="submit" value="Connexion" class="btn btn-success mt-2">
+        </form>
 
-    <a href="/user/new" class="btn btn-link">Vous n'avez pas encore de compte ?</a>
+        <a href="/user/new" class="btn btn-link">Vous n'avez pas encore de compte ?</a>
+    </div>
     
     {# <p><a href="{{ url("forgotpassword") }}">Forgot your password?</a></p> #}
     

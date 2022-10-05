@@ -2,7 +2,9 @@
 
 {% block body %}
 
+{% if is_granted('ROLE_ADMIN') %}
 <a  class="btn btn-primary mt-3" href="/permission/new"><i class="fa-solid fa-plus"></i> Permission</a>
+{% endif %}
 
 <div class="container mt-5">
 
@@ -11,12 +13,14 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ permission.name }} : {{ permission.description }}
                 <div class="d-flex">
+                    {% if is_granted('ROLE_ADMIN') %}
                     <span class="badge bg-danger rounded-pill">
                         <a href="{{ path('delete-permission', {'id':permission.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </span>
                     <span class="badge bg-warning rounded-pill">
                         <a href="{{ path('edit-permission', {'id':permission.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                     </span>
+                    {% endif %}
                </div>
                 
             </li>

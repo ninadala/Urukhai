@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -50,14 +51,14 @@ class UserType extends AbstractType
                 "constraints" => [ new Email(["message" => "Vous devez entrer un email valide"])]
             ])
             ->add('roles', ChoiceType::class, [
+                'label' => 'Rôles',
+                'required' => true,
+                'expanded' => false,
+                'multiple' => false,
                 'choices' => [
                     'Admin URUKHAI' => 'ROLE_ADMIN',
                     'Client' => 'ROLE_USER'
-                ],
-                "label" => "Rôles",
-                "required" => true,
-                "expanded" => true,
-                "multiple" => true
+                ]
             ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe",
@@ -67,6 +68,18 @@ class UserType extends AbstractType
                 ]
             ])
         ;
+
+        $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                     // transform the array to a string
+                     return count($rolesArray)? $rolesArray[0]: null;
+                },
+                function ($rolesString) {
+                     // transform the string back to an array
+                     return [$rolesString];
+                }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -6,6 +6,7 @@ use App\Entity\Salle;
 use App\Form\FranchiseType;
 use App\Form\SalleType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +20,12 @@ class SalleController extends AbstractController
         $repository = $doctrine->getRepository(Salle::class);
         $salles = $repository->findAll();
         return $this->render('salle/index.html.twig', [
-            'salles' => $salles,
+            'salles' => $salles
         ]);
     }
 
     #[Route('/salle/new')]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, ManagerRegistry $doctrine) : Response
     {
         $salle = new Salle();
@@ -41,6 +43,7 @@ class SalleController extends AbstractController
     }
 
     #[Route('/salle/delete/{id<\d+>}', name:"delete-salle")]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Salle $salle, ManagerRegistry $doctrine) : Response
     {
         $em = $doctrine->getManager();
@@ -51,6 +54,7 @@ class SalleController extends AbstractController
     }
 
     #[Route('/salle/edit/{id<\d+>}', name:"edit-salle")]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(Salle $salle, Request $request, ManagerRegistry $doctrine) : Response
     {
         $form = $this->createForm(SalleType::class, $salle);
@@ -62,6 +66,24 @@ class SalleController extends AbstractController
         }
         return $this->render('salle/form.html.twig', [
             "salle_form" => $form->createView()
+        ]);
+    }
+
+    #[Route('/salle/fiche/{id<\d+>}', name:'fiche-salle')]
+    public function fiche(int $id, ManagerRegistry $doctrine): Response
+    {
+        $repository = $doctrine->getRepository(Salle::class);
+        $salle = $repository->find($id);
+        $franchise = $salle->getFranchise();
+        $franchisePermissions = $franchise->getPermissions();
+        $user = $salle->getUser();
+        $permissions = $salle->getPermissions();
+        return $this->render('salle/unity.html.twig', [
+            'salle' => $salle,
+            'franchise' => $franchise,
+            'user' => $user,
+            'permissions' => $permissions,
+            'franchisePermissions' => $franchisePermissions
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Permission;
 use App\Form\PermissionType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class PermissionController extends AbstractController
     }
 
     #[Route('/permission/new')]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, ManagerRegistry $doctrine) : Response
     {
         $permission = new Permission();
@@ -40,6 +42,7 @@ class PermissionController extends AbstractController
     }
 
     #[Route('/permission/delete/{id<\d+>}', name:"delete-permission")]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Permission $permission, ManagerRegistry $doctrine) : Response
     {
         $em = $doctrine->getManager();
@@ -50,6 +53,7 @@ class PermissionController extends AbstractController
     }
 
     #[Route('/permission/edit/{id<\d+>}', name:"edit-permission")]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(Permission $permission, Request $request, ManagerRegistry $doctrine) : Response
     {
         $form = $this->createForm(PermissionType::class, $permission);
