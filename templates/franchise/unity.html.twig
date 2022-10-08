@@ -6,7 +6,15 @@
         <h1>Franchise : {{ franchise.name }} </h1>
         <h4>Administrateur : {{ user.firstname }} {{ user.lastname }}</h4>
         {% if is_granted('ROLE_ADMIN') %}
-        <a  class="btn btn-primary mt-3" href="/salle/new"><i class="fa-solid fa-plus"></i> Salle</a>
+        <span class="badge bg-primary rounded-pill">
+            <a  class="btn btn-primary" href="{{ path('create-salle', {'franchise': franchise.id}) }}"><i class="fa-solid fa-plus"></i> Salle</a>
+        </span>
+        <span class="badge bg-danger rounded-pill">
+            <a href="{{ path('delete-franchise', {'id':franchise.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+        </span>
+        <span class="badge bg-warning rounded-pill">
+            <a href="{{ path('edit-franchise', {'id':franchise.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+        </span>
         {% endif %}
         
         <div class="d-block d-md-flex">

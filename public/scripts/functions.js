@@ -7,13 +7,28 @@ const togglePassword = () => {
     eyeSlashIcon.classList.contains("d-none") ? eyeSlashIcon.classList.remove("d-none") : eyeSlashIcon.classList.add("d-none")
 }
 
-function filtre() { 
-    console.log("test");
- }
-
-// const franchiseFilter = () => {
-//     console.log("test");
-//     // const activatedField = document.querySelector("#listGroupItem")
-//     // activatedField.type = activatedField.type === "text" ? "item" : "text"
-//     // activatedField.classList.contains("disabled") ? activatedField.classList.add("d-none") : activatedField.classList.remove("d-none")
+// const managePermission = () => {
+//     const button = document.getElementById('flexSwitchCheckChecked')
+//     if(button. )
 // }
+
+const filterShowActive = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item-dark") ? item.classList.add("d-none") : item.classList.remove("d-none")
+    })
+}
+
+const filterShowInactive = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item-light") ? item.classList.add("d-none") : item.classList.remove("d-none")
+    })
+}
+
+const filter = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item") ? item.classList.remove("d-none") : item.classList.remove("d-none")
+    })
+}

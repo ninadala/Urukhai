@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Permission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -13,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Permission|null findOneBy(array $criteria, array $orderBy = null)
  * @method Permission[]    findAll()
  * @method Permission[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Permission[]    findAllWithout(Collection $permissions)
  */
 class PermissionRepository extends ServiceEntityRepository
 {
@@ -38,6 +40,17 @@ class PermissionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAllWithout(Collection $permissions)
+    {
+        $permissions_id = $permissions->map(function($permission){return $permission->getId();})->getValues();
+        return $this->createQueryBuilder('p')
+           ->andWhere('p.id NOT IN (:permissionIds)')
+           ->setParameter('permissionIds', $permissions_id)
+           ->getQuery()
+           ->getResult()
+       ;
+    } // SELECT * FROM permissions WHERE permissions.id NOT IN ([1, 5, 6, 8])
 
 //    /**
 //     * @return Permission[] Returns an array of Permission objects

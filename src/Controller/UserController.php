@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'user-home')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(User::class);
@@ -95,6 +96,8 @@ class UserController extends AbstractController
     //         "user_form" => $form->createView()
     //     ]);
     // }
+    // dupliquer l'utilisateur en vidant le champ password et vérifier si le mot de passe est vide ou non -> si vide rien -> si remplis je hash le password 
+    // pour que le champ password requis ne soit pas un probleme checkb les conditions du UserType
 
     #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
     public function fiche(int $id, ManagerRegistry $doctrine): Response

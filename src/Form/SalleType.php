@@ -34,7 +34,8 @@ class SalleType extends AbstractType
             ])
             ->add('franchise', EntityType::class, [
                 'class' => Franchise::class,
-                'choice_label'=> 'name'
+                'choice_label'=> 'name',
+                'disabled' => true
             ])
             ->add('user', EntityType::class, [
                 'label' => 'Administrateur',

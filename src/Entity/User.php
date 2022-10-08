@@ -42,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
+
     }
 
     public function getId(): ?int

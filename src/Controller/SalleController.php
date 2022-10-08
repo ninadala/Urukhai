@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Franchise;
+use App\Entity\Permission;
 use App\Entity\Salle;
 use App\Form\FranchiseType;
 use App\Form\SalleType;
@@ -24,11 +26,13 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('/salle/new')]
+    #[Route('/salle/new/{franchise}', name: "create-salle", requirements: ['franchise' => '\d+'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request, ManagerRegistry $doctrine) : Response
+    public function create(Franchise $franchise, Request $request, ManagerRegistry $doctrine) : Response
     {
         $salle = new Salle();
+        $salle->setFranchise($franchise);
+        $permissions = $doctrine->getRepository(Permission::class)->findAllWithout($franchise->getPermissions());
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,7 +42,9 @@ class SalleController extends AbstractController
             return $this->redirectToRoute('salle-home');
         }
         return $this->render('salle/form.html.twig', [
-            "salle_form" => $form->createView()
+            "salle_form" => $form->createView(),
+            "franchise_permissions" => $franchise->getPermissions(),
+            "permissions" => $permissions
         ]);
     }
 
@@ -65,7 +71,8 @@ class SalleController extends AbstractController
             return $this->redirectToRoute('salle-home');
         }
         return $this->render('salle/form.html.twig', [
-            "salle_form" => $form->createView()
+            "salle_form" => $form->createView(),
+            "franchise_permissions" => $salle->getFranchise()->getPermissions()
         ]);
     }
 
