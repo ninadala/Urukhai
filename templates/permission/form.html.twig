@@ -1,7 +1,14 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('style/formsPages.css')}}">
+{% endblock %}
+
 {% block body %}
-    {{ form_start(permission_form)}}
-    {{ form_rest(permission_form)}}
+    <div class="d-flex mt-5">
+        {{ form_start(permission_form, {'attr': {'class': 'container'}})}}
+        {{ form_rest(permission_form)}}
         <input class="btn btn-primary" type="submit" value="Valider">
+    </div>
 {% endblock %}

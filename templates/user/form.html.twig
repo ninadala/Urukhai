@@ -1,6 +1,12 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('style/formsPages.css')}}">
+{% endblock %}
+
 {% block body %}
+<div class="d-flex mt-5">
     {{ form_start(user_form, {'attr': {'class': 'container'}})}}
     {{ form_row(user_form.username)}}
     {{ form_label(user_form.password)}}
@@ -13,5 +19,6 @@
     </div>
     {{ form_errors(user_form.password)}}
     {{ form_rest(user_form)}}
-    <input class="btn btn-success mt-3" type="submit" value="Ok">
+    <input class="btn btn-success mt-3" type="submit" value="Ok" id="btnSubmit">
+</div>
 {% endblock %}

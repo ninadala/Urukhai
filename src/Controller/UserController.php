@@ -82,9 +82,9 @@ class UserController extends AbstractController
     }
 
     // #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
-    // public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher): Response
+    // public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     // {
-    //     $form = $this->createForm(UserType::class, $user);
+    //     $form = $this->createForm(UserType::class, $user($this->passwordHasher));
     //     $form->handleRequest($request);
     //     if ($form->isSubmitted() && $form->isValid()) {
     //         $em = $doctrine->getManager();

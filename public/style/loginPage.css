@@ -10,8 +10,10 @@
 #btnLogin {
     color: #000957;
     background-color: #EBE645;
+    border-color: whitesmoke;
 }
 
 .d-block {
     border-radius: 2%;
 }
+

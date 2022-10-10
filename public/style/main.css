@@ -13,4 +13,10 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.navbar, #navbar, .nav-link {
+    background-color: #000957;
+    color: whitesmoke;
+}
+
+
 
