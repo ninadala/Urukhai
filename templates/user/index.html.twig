@@ -1,20 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('style/listsPages.css')}}">
+{% endblock %}
+
 {% block body %}
-
-
-
 <div class="container mt-5">
 
-    <div class="d-flex my-1">    
-        <div class="d-flex my-1">
+    <div class="d-flex my-3" >    
+        <div class="d-flex ms-1">
         {% if is_granted('ROLE_ADMIN') %}
-            <a  class="btn btn-primary mt-3" href="/user/new"><i class="fa-solid fa-plus"></i> Utilisateur</a>
+            <a  class="btn btn-primary" href="/user/new" id="newButton"><i class="fa-solid fa-plus"></i> Utilisateur</a>
         {% endif %}
         </div>
 
-        <div class="dropdown d-flex my-1">
-            <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+        <div class="dropdown d-flex ms-1" >
+            <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterButton">
                 Filtrer
             </button>
             <ul class="dropdown-menu">
@@ -28,9 +30,9 @@
     {% for user in users %}
         <ul class="list-group">
             {% if user.roles[0] =='ROLE_ADMIN' %}
-            <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+            <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center" id="listGroupA">
             {% else %}
-            <li class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">   
+            <li class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center" id="listGroupB">   
             {% endif %}
                 {{ user.lastname }} {{ user.firstname }} : {{ user.email }} {% if user.roles[0] == 'ROLE_ADMIN' %} - URUK-HAÏ - {% else %} - CLIENT - {% endif %}
                 

@@ -38,7 +38,7 @@ const filterShowActiveSalles = () => {
 const filterShowInactiveSalles = () => {
     const listCards = document.querySelectorAll("#card-salle")
     listCards.forEach((card) => {
-        card.classList.contains("bg-light") ? card.classList.add("d-none") : card.classList.remove("d-none")
+        card.classList.contains("activee") ? card.classList.add("d-none") : card.classList.remove("d-none")
     })
 }
 

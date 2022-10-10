@@ -1,23 +1,30 @@
 {% extends "base.html.twig" %}
 
-{% block body %}    
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('style/listsPages.css')}}">
+{% endblock %}
 
-<div class="container mt-5 m">
-    <div class="dropdown d-flex ms-5">
-        <button class="btn btn-succes my-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-            Filtrer
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" id="button_filter" onClick="filterShowActiveSalles()">Salles actives</a></li>
-            <li><a class="dropdown-item" id="button_filter" onClick="filterShowInactiveSalles()">Salles inactives</a></li>
-            <li><a class="dropdown-item" id="button_filter" onClick="filterSalles()">Toute les salles</a></li>
-        </ul>
+{% block body %}    
+<div class="container mt-5">
+    
+    <div class="d-flex my-3 ms-4">
+        <div class="dropdown d-flex ms-5">
+            <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterButton">
+                Filtrer
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" id="button_filter" onClick="filterShowActiveSalles()">Salles actives</a></li>
+                <li><a class="dropdown-item" id="button_filter" onClick="filterShowInactiveSalles()">Salles inactives</a></li>
+                <li><a class="dropdown-item" id="button_filter" onClick="filterSalles()">Toute les salles</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="d-flex justify-content-around flex-wrap">
         {% for salle in salles %}
             {% if salle.franchise.activated == true %}
-            <div class="card bg-light mb-3" style="width: 25rem;" id="card-salle">
+            <div class="card activee mb-3" style="width: 25rem;" id="card-salle">
             {% else %}  
             <div class="card bg-secondary text-light mb-3" style="width: 25rem;" id="card-salle">
             {% endif %}
@@ -35,7 +42,7 @@
                     {% endif %}
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted"> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }}>{{salle.franchise.name}}</a> </small>
+                    <small> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }} class="small">{{salle.franchise.name}}</a> </small>
                 </div>
             </div> 
         {% endfor %}

@@ -1,0 +1,28 @@
+.small {
+    color: #EBE645;
+}
+
+#newButton, #filterButton {
+    background-color: #000957;
+    color: whitesmoke;
+    /* max-height: 3em; */
+}
+
+#listGroupA, 
+#listGroupB, 
+#listGroupItem, 
+#listGroupItemDark,
+.card {
+    border-color: whitesmoke;
+}
+
+#listGroupA {
+    background-color: #577BC1;
+    color: whitesmoke;
+}
+
+#listGroupB, #listGroupItem, .activee {
+    background-color: #000957;
+    color: whitesmoke;
+}
+

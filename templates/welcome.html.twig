@@ -13,11 +13,7 @@
 
     {% if app.user %}
 
-        <div class="d-flex centered-element">
-            <img src="{{ asset('images/LogoSmall.png')}}" class="d-flex justify-content-center" alt="Logo">
-        </div>
-
-
+       
     {% else %}
         
         <div class="d-flex centered-element">
@@ -25,7 +21,7 @@
             <img src="{{ asset('images/LogoSmall.png')}}" class="card-img-top" alt="Logo">
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center">Bienvenue chez URUK-HAÏ</h5>
-                <a href="/login" class="btn btn-primary d-flex justify-content-center">Se connecter</a>
+                <a href="/login" class="btn d-flex justify-content-center" id="btnLogin">Se connecter</a>
             </div>
             </div>
         </div>
