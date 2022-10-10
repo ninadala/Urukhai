@@ -1,24 +1,28 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {% if is_granted('ROLE_ADMIN') %}
-    <a  class="btn btn-primary mt-3" href="/franchise/new"><i class="fa-solid fa-plus"></i> Franchise</a>
-    {% endif %}
+    
 
     <div class="container mt-5">
 
-        <div class="dropdown">
-            <button class="btn btn-succes my-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                Filtrer
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" id="button_filter" onClick="filterShowActive()">Franchises actives</a></li>
-                <li><a class="dropdown-item" id="button_filter" onClick="filterShowInactive()">Franchises inactives</a></li>
-                <li><a class="dropdown-item" id="button_filter" onClick="filter()">Toute les franchises</a></li>
-            </ul>
+        <div class="d-flex my-1">
+            <div class="d-flex my-1">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a  class="btn btn-primary mt-3" href="/franchise/new"><i class="fa-solid fa-plus"></i> Franchise</a>
+            {% endif %}
+            </div>
+
+            <div class="dropdown d-flex my-1">
+                <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                    Filtrer
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" id="button_filter" onClick="filterShowActive()">Franchises actives</a></li>
+                    <li><a class="dropdown-item" id="button_filter" onClick="filterShowInactive()">Franchises inactives</a></li>
+                    <li><a class="dropdown-item" id="button_filter" onClick="filter()">Toute les franchises</a></li>
+                </ul>
+            </div>
         </div>
-        
-        {# <button type="button" class="btn btn-success my-3" id="button_filter" onClick="filter()">Afficher</button> #}
         
         {% for franchise in franchises %}
 

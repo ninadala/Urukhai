@@ -2,15 +2,36 @@
 
 {% block body %}
 
-{% if is_granted('ROLE_ADMIN') %}
-<a  class="btn btn-primary mt-3" href="/user/new"><i class="fa-solid fa-plus"></i> Utilisateur</a>
-{% endif %}
+
 
 <div class="container mt-5">
 
+    <div class="d-flex my-1">    
+        <div class="d-flex my-1">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a  class="btn btn-primary mt-3" href="/user/new"><i class="fa-solid fa-plus"></i> Utilisateur</a>
+        {% endif %}
+        </div>
+
+        <div class="dropdown d-flex my-1">
+            <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                Filtrer
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" id="button_filter" onClick="filterShowAdmins()">Admin URUK-HAÏ</a></li>
+                <li><a class="dropdown-item" id="button_filter" onClick="filterShowClients()">Clients</a></li>
+                <li><a class="dropdown-item" id="button_filter" onClick="filterAllUsers()">Toute les utilisateurs</a></li>
+            </ul>
+        </div>
+    </div>
+
     {% for user in users %}
         <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            {% if user.roles[0] =='ROLE_ADMIN' %}
+            <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+            {% else %}
+            <li class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">   
+            {% endif %}
                 {{ user.lastname }} {{ user.firstname }} : {{ user.email }} {% if user.roles[0] == 'ROLE_ADMIN' %} - URUK-HAÏ - {% else %} - CLIENT - {% endif %}
                 
                  <div class="d-flex">

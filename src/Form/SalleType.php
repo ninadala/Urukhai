@@ -41,6 +41,13 @@ class SalleType extends AbstractType
                 'label' => 'Administrateur',
                 'class' => User::class,
                 'choice_label'=> 'username'
+            ])
+            ->add('permissions', EntityType::class, [
+                'label' => 'Permissions',
+                'class' => Permission::class,
+                'choice_label' => 'name',
+                'expanded'=> true,
+                'multiple' => true
             ]);
     }
 

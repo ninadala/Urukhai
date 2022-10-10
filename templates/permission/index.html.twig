@@ -2,11 +2,14 @@
 
 {% block body %}
 
-{% if is_granted('ROLE_ADMIN') %}
-<a  class="btn btn-primary mt-3" href="/permission/new"><i class="fa-solid fa-plus"></i> Permission</a>
-{% endif %}
+
 
 <div class="container mt-5">
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        <a  class="btn btn-primary my-3" href="/permission/new"><i class="fa-solid fa-plus"></i> Permission</a>
+    {% endif %}
+
 
     {% for permission in permissions %}
         <ul class="list-group">

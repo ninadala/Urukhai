@@ -2,30 +2,43 @@
 
 {% block body %}    
 
-<div class="d-flex justify-content-around flex-wrap container mt-5">
-    {% for salle in salles %}
-        {% if salle.franchise.activated == true %}
-        <div class="card mb-3" style="width: 25rem;">
-        {% else %}  
-        <div class="card text-white bg-secondary mb-3" style="width: 25rem;">
-        {% endif %}
-            <div class="card-body">
-                <h4 class="card-title">{{ salle.name }}</h4>
-               
-                <h6 class="card-title"> Administrateur: {{ salle.user.lastname }} {{ salle.user.firstname }}</h6>
+<div class="container mt-5 m">
+    <div class="dropdown d-flex ms-5">
+        <button class="btn btn-succes my-3 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            Filtrer
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" id="button_filter" onClick="filterShowActiveSalles()">Salles actives</a></li>
+            <li><a class="dropdown-item" id="button_filter" onClick="filterShowInactiveSalles()">Salles inactives</a></li>
+            <li><a class="dropdown-item" id="button_filter" onClick="filterSalles()">Toute les salles</a></li>
+        </ul>
+    </div>
+
+    <div class="d-flex justify-content-around flex-wrap">
+        {% for salle in salles %}
+            {% if salle.franchise.activated == true %}
+            <div class="card bg-light mb-3" style="width: 25rem;" id="card-salle">
+            {% else %}  
+            <div class="card bg-secondary text-light mb-3" style="width: 25rem;" id="card-salle">
+            {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ salle.name }}</h4>
                 
-                <span class="badge bg-primary rounded-pill">
-                    <a href="{{ path('fiche-salle', {'id':salle.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
-                </span>
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                {% endif %}
-            </div>
-            <div class="card-footer">
-                <small class="text-muted"> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }}>{{salle.franchise.name}}</a> </small>
-            </div>
-        </div> 
-    {% endfor %}
+                    <h6 class="card-title"> Administrateur: {{ salle.user.lastname }} {{ salle.user.firstname }}</h6>
+                    
+                    <span class="badge bg-primary rounded-pill">
+                        <a href="{{ path('fiche-salle', {'id':salle.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+                    </span>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }}>{{salle.franchise.name}}</a> </small>
+                </div>
+            </div> 
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

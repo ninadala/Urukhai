@@ -7,11 +7,6 @@ const togglePassword = () => {
     eyeSlashIcon.classList.contains("d-none") ? eyeSlashIcon.classList.remove("d-none") : eyeSlashIcon.classList.add("d-none")
 }
 
-// const managePermission = () => {
-//     const button = document.getElementById('flexSwitchCheckChecked')
-//     if(button. )
-// }
-
 const filterShowActive = () => {
     const listItems = document.querySelectorAll(".list-group-item")
     listItems.forEach((item) => {
@@ -27,6 +22,48 @@ const filterShowInactive = () => {
 }
 
 const filter = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item") ? item.classList.remove("d-none") : item.classList.remove("d-none")
+    })
+}
+
+const filterShowActiveSalles = () => {
+    const listCards = document.querySelectorAll("#card-salle")
+    listCards.forEach((card) => {
+        card.classList.contains("bg-secondary") ? card.classList.add("d-none") : card.classList.remove("d-none")
+    })
+}
+
+const filterShowInactiveSalles = () => {
+    const listCards = document.querySelectorAll("#card-salle")
+    listCards.forEach((card) => {
+        card.classList.contains("bg-light") ? card.classList.add("d-none") : card.classList.remove("d-none")
+    })
+}
+
+const filterSalles = () => {
+    const listCards = document.querySelectorAll("#card-salle")
+    listCards.forEach((card) => {
+        card.classList.contains("card") ? card.classList.remove("d-none") : card.classList.remove("d-none")
+    })
+}
+
+const filterShowAdmins = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item-warning") ? item.classList.add("d-none") : item.classList.remove("d-none")
+    })
+}
+
+const filterShowClients = () => {
+    const listItems = document.querySelectorAll(".list-group-item")
+    listItems.forEach((item) => {
+        item.classList.contains("list-group-item-primary") ? item.classList.add("d-none") : item.classList.remove("d-none")
+    })
+}
+
+const filterAllUsers = () => {
     const listItems = document.querySelectorAll(".list-group-item")
     listItems.forEach((item) => {
         item.classList.contains("list-group-item") ? item.classList.remove("d-none") : item.classList.remove("d-none")

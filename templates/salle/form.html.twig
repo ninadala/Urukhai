@@ -1,21 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ form_start(salle_form) }}
+    {{ form_start(salle_form, {'attr': {'class': 'container'}}) }}
     {{ form_rest(salle_form) }}
-
         <div class="d-block d-md-flex">
-            <div class="card mx-3 my-3" style="width: 20rem;">
-                <div class="card-header">
-                    Permissions propres à la salle
-                </div>
-                <ul class="list-group list-group-flush">
-                    {% for permission in permissions %}
-                    <li class="list-group-item"> {{ permission.name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
             <div class="card mx-3 my-3" style="width: 20rem;">
                 <div class="card-header">
                     Permissions globales de la franchise :
