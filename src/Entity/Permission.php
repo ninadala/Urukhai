@@ -21,7 +21,7 @@ class Permission
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Salle::class, inversedBy: 'permissions')]
+    #[ORM\ManyToMany(targetEntity: Salle::class, mappedBy: 'permissions')]
     private Collection $salle;
 
     #[ORM\ManyToMany(targetEntity: Franchise::class, mappedBy: 'permissions')]
@@ -72,8 +72,9 @@ class Permission
 
     public function addSalle(Salle $salle): self
     {
-        if (!$this->salle->contains($salle)) {
-            $this->salle->add($salle);
+        if (!$this->salles->contains($salle)) {
+            $this->salles->add($salle);
+            $salle->addPermission($this);
         }
 
         return $this;
@@ -81,8 +82,10 @@ class Permission
 
     public function removeSalle(Salle $salle): self
     {
-        $this->salle->removeElement($salle);
-
+        if ($this->salles->removeElement($salle)) {
+            $salle->removePermission($this);
+        }
+        
         return $this;
     }
 

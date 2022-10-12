@@ -31,7 +31,7 @@ class Salle
     #[ORM\ManyToOne]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Permission::class, mappedBy: 'salle')]
+    #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'salle')]
     private Collection $permissions;
 
     public function __construct()
@@ -122,9 +122,8 @@ class Salle
 
     public function addPermission(Permission $permission): self
     {
-        if (!$this->permissions->contains($permission)) {
-            $this->permissions->add($permission);
-            $permission->addSalle($this);
+        if (!$this->salle->contains($permission)) {
+            $this->salle->add($permission);
         }
 
         return $this;
@@ -132,9 +131,7 @@ class Salle
 
     public function removePermission(Permission $permission): self
     {
-        if ($this->permissions->removeElement($permission)) {
-            $permission->removeSalle($this);
-        }
+        $this->permission->removeElement($permission);
 
         return $this;
     }
