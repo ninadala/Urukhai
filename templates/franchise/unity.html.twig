@@ -2,7 +2,7 @@
 
 {% block body %}
 
-   <div class="container">
+   <div class="container mt-5">
         <h1>Franchise : {{ franchise.name }} </h1>
         <h4>Administrateur : {{ user.firstname }} {{ user.lastname }}</h4>
         {% if is_granted('ROLE_ADMIN') %}

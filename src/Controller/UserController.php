@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Franchise;
+use App\Entity\Salle;
 use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\UserType;
@@ -104,9 +106,8 @@ class UserController extends AbstractController
     {
         $repository = $doctrine->getRepository(User::class);
         $user = $repository->find($id);
-        // $salles = $franchise->getSalles();
         return $this->render('user/unity.html.twig', [
-            'user' => $user,
+            'user' => $user
         ]);
     }
 }

@@ -1,3 +1,10 @@
+body {
+    background-image: url('../images/backgroundImage.jpg');
+    background-position: center center;
+    height: 50rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 .card-body, .d-block {
     background-color: #000957;
