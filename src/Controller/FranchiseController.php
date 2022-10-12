@@ -81,7 +81,6 @@ class FranchiseController extends AbstractController
         $user = $franchise->getUser();
         $permGlobales = $repositoryPermissions->findAll();
         $permissions = $franchise->getPermissions();
-        dump($salles);
         return $this->render('franchise/unity.html.twig', [
             'franchise' => $franchise,
             'salles' => $salles,

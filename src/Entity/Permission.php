@@ -24,7 +24,7 @@ class Permission
     #[ORM\ManyToMany(targetEntity: Salle::class, inversedBy: 'permissions')]
     private Collection $salle;
 
-    #[ORM\ManyToMany(targetEntity: Franchise::class, inversedBy: 'permissions')]
+    #[ORM\ManyToMany(targetEntity: Franchise::class, mappedBy: 'permissions')]
     private Collection $franchise;
 
     public function __construct()
@@ -98,6 +98,7 @@ class Permission
     {
         if (!$this->franchise->contains($franchise)) {
             $this->franchise->add($franchise);
+            $franchise->addPermission($this);
         }
 
         return $this;
@@ -105,7 +106,9 @@ class Permission
 
     public function removeFranchise(Franchise $franchise): self
     {
-        $this->franchise->removeElement($franchise);
+        if ($this->franchise->removeElement($franchise)) {
+            $franchise->removePermission($this);
+        }
 
         return $this;
     }

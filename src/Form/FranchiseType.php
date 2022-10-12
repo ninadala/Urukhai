@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Franchise;
+use App\Entity\Permission;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -31,6 +32,13 @@ class FranchiseType extends AbstractType
             ->add("activated", CheckboxType::class, [
                 "label" => "Active ?",
                 "required" => false
+            ])
+            ->add('permissions', EntityType::class, [
+                'label' => 'Permissions',
+                'class' => Permission::class,
+                'choice_label' => 'name',
+                'expanded'=> true,
+                'multiple' => true
             ]);
     }
 

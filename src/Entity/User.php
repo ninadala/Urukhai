@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -39,10 +41,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Salle::class, orphanRemoval: false)]
+    private Collection $salles;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Franchise::class, orphanRemoval: false)]
+    private Collection $franchises;
+
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
-
+    
     }
 
     public function getId(): ?int
@@ -171,4 +179,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection<int, Salle>
+     */
+    public function getSalles(): Collection
+    {
+        return $this->salles;
+    }
+
+    public function addSalle(Salle $salle): self
+    {
+        if (!$this->salles->contains($salle)) {
+            $this->salles->add($salle);
+            $salle->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalle(Salle $salle): self
+    {
+        if ($this->salles->removeElement($salle)) {
+            // set the owning side to null (unless already changed)
+            if ($salle->getUser() === $this) {
+                $salle->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Franchise>
+     */
+    public function getFranchises(): Collection
+    {
+        return $this->franchises;
+    }
+
+    public function addFranchise(Franchise $franchise): self
+    {
+        if (!$this->franchises->contains($franchise)) {
+            $this->franchises->add($franchise);
+            $franchise->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFranchise(Franchise $franchise): self
+    {
+        if ($this->franchise->removeElement($franchise)) {
+            // set the owning side to null (unless already changed)
+            if ($franchise->getUser() === $this) {
+                $franchise->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

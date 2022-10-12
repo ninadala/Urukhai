@@ -9,34 +9,8 @@
     <div class="container mt-5">
         <h1> {{ user.firstname }} {{ user.lastname }}</h1>
         <h4>Email : {{ user.email }}</h4>
-        <h6>Rôle : {% if user.roles[0] == 'ROLE_ADMIN' %} - Administrateur URUK-HAÏ - {% else %} - CLIENT - {% endif %}</h6>
+        <h6>Rôle : {% if user.roles[0] == 'ROLE_ADMIN' %} - Administrateur URUK-HAÏ - {% else %} - Client - {% endif %}</h6>
         
-        {% if user.roles[0] == 'ROLE_USER' %}
-        <div class="d-block d-md-flex">
-            <div class="card mx-3 my-3" style="width: 20rem;">
-                <div class="card-header">
-                    Responsable de la structure :
-                </div>
-                <ul class="list-group list-group-flush">
-                    {# {% for salle in salles %}
-                    <li class="list-group-item"><a href="{{'/salle/fiche/' ~ salle.id }}">{{ salle.name }}</a></li>
-                    {% endfor %} #}
-                </ul>
-            </div>
-
-            {# <div class="card mx-3 my-3" style="width: 20rem;">
-                <div class="card-header">
-                    Responsables des franchises :
-                </div>
-                <ul class="list-group list-group-flush">
-                    {% for franchise in franchises %}
-                    <li class="list-group-item"><a href="{{'/salle/fiche/' ~ franchise.id }}">{{ franchise.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div> #}
-        </div>
-        {% endif %}
-
         {% if is_granted('ROLE_ADMIN') %}
         <span class="badge bg-danger rounded-pill">
             <a href="{{ path('delete-user', {'id':user.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
@@ -45,7 +19,32 @@
             <a href="{{ path('edit-user', {'id':user.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
         </span> #}
         {% endif %}
-        
+
+        {% if user.roles[0] == 'ROLE_USER' %}
+        <div class="d-block d-md-flex">
+            <div class="card mx-3 my-3" style="width: 20rem;">
+                <div class="card-header">
+                    Responsable des structures :
+                </div>
+                <ul class="list-group list-group-flush">
+                
+                     {% for salle in salles %}
+                        <li class="list-group-item">
+                            Salle :
+                            <a href="{{'/salle/fiche/' ~ salle.id }}">{{ salle.name }}</a>
+                        </li>
+                    {% endfor %}
+                
+                    {% for franchise in franchises %}
+                        <li class="list-group-item">
+                            Franchise :
+                            <a href="{{'/franchise/fiche/' ~ franchise.id }}">{{ franchise.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
     </div>
     
 {% endblock %}

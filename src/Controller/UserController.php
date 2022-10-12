@@ -106,8 +106,12 @@ class UserController extends AbstractController
     {
         $repository = $doctrine->getRepository(User::class);
         $user = $repository->find($id);
+        $salles = $user->getSalles();
+        $franchises = $user->getFranchises();
         return $this->render('user/unity.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'salles' => $salles,
+            'franchises' => $franchises
         ]);
     }
 }
