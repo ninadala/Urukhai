@@ -21,7 +21,7 @@ class Franchise
     #[ORM\OneToMany(mappedBy: 'franchise', targetEntity: Salle::class, orphanRemoval: true)]
     private Collection $salles;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity:"App\Entity\User", inversedBy: 'franchises')]
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'franchise')]

@@ -36,10 +36,6 @@
                     <span class="badge bg-primary rounded-pill">
                         <a href="{{ path('fiche-salle', {'id':salle.id}) }}" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i></a>
                     </span>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                    <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                    {% endif %}
                 </div>
                 <div class="card-footer">
                     <small> Franchise : <a href={{'/franchise/fiche/' ~ salle.franchise.id }} class="small">{{salle.franchise.name}}</a> </small>

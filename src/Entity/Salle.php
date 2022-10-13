@@ -28,8 +28,8 @@ class Salle
     #[ORM\JoinColumn(name:"franchise_id", referencedColumnName:"id", onDelete:"CASCADE")]
     private ?Franchise $franchise = null;
 
-    #[ORM\ManyToOne]
-    private ?User $user = null;
+    #[ORM\ManyToOne(targetEntity:"App\Entity\User", inversedBy: "salles")]
+    private ?User $user = null; 
 
     #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'salle')]
     private Collection $permissions;

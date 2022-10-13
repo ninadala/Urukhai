@@ -8,6 +8,16 @@
 {% block body %}
     <div class="d-flex mt-5">
     {{ form_start(salle_form, {'attr': {'class': 'container'}}) }}
+    {{ form_row(salle_form.name) }}
+    {{ form_row(salle_form.address) }}
+    {{ form_row(salle_form.capacity) }}
+    {{ form_row(salle_form.franchise) }}
+    {{ form_row(salle_form.user) }}
+    {# <div class="input">
+        {% for sallePermission in sallePermissions %}
+            {{form_row(salle_form.permissions)}}
+        {% endfor %}
+    </div> #}
     {{ form_rest(salle_form) }}
         <div class="d-block d-md-flex">
             <div class="card mx-3 my-3" style="width: 20rem;">

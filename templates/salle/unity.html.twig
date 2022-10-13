@@ -8,6 +8,14 @@
         <h6>{{ salle.address }}</h6>
         <h6>{{ salle.capacity }} places</h6>
         <h6>Franchise : {{ franchise.name }}</h6>
+        {% if is_granted('ROLE_ADMIN') %}
+            <span class="badge bg-danger rounded-pill">
+                <a href="{{ path('delete-salle', {'id':salle.id}) }}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+            </span>
+            <span class="badge bg-warning rounded-pill">
+                <a href="{{ path('edit-salle', {'id':salle.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+            </span>
+        {% endif %}
         
         <div class="d-block d-md-flex">
             <div class="card mx-3 my-3" style="width: 20rem;">

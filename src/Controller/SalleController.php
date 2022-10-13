@@ -32,8 +32,8 @@ class SalleController extends AbstractController
     {
         $salle = new Salle();
         $salle->setFranchise($franchise);
-        $permissions = $doctrine->getRepository(Permission::class)->findAllWithout($franchise->getPermissions());
-        $form = $this->createForm(SalleType::class, $salle);
+        $sallePermissions = $doctrine->getRepository(Permission::class)->findAllWithout($franchise->getPermissions());
+        $form = $this->createForm(SalleType::class, $salle, ['salle_permissions' => $sallePermissions]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
@@ -44,7 +44,7 @@ class SalleController extends AbstractController
         return $this->render('salle/form.html.twig', [
             "salle_form" => $form->createView(),
             "franchise_permissions" => $franchise->getPermissions(),
-            "permissions" => $permissions
+            "sallePermissions" => $sallePermissions
         ]);
     }
 

@@ -8,6 +8,7 @@ use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,8 @@ class SalleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // $sallePermissions = $options['salle_permission'];
+        
         $builder
             ->add('name', TextType::class, [
                 "label" => "Nom",
@@ -55,6 +58,7 @@ class SalleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Salle::class,
+            'salle_permissions' => [],
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id' => 'post_item',
