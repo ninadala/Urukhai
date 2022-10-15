@@ -29,9 +29,6 @@ DATABASE_URL="mysql://root@127.0.0.1:3306/urukhai?serverVersion=mariadb-10.4.24"
 ###< doctrine/doctrine-bundle ###
 
 ###> symfony/mailer ###
-#MAILER_DSN=smtp://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@sendgrid
+MAILER_DSN=smtp://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@sendgrid
+#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
 ###< symfony/mailer ###
-
-###> symfony/sendgrid-mailer ###
-MAILER_DSN=sendgrid://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@default
-###< symfony/sendgrid-mailer ###
