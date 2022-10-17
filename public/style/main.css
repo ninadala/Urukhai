@@ -14,5 +14,6 @@ body {
     color: whitesmoke;
 }
 
-
-
+.navbar-toggler {
+    background-color: #EBE645;
+}

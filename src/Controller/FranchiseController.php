@@ -20,7 +20,6 @@ class FranchiseController extends AbstractController
     {
         $repository = $doctrine->getRepository(Franchise::class);
         $franchises = $repository->findAll();
-        dump($franchises);
         return $this->render('franchise/index.html.twig', [
             "franchises"=>$franchises
         ]);
