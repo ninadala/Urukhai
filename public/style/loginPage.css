@@ -1,16 +1,16 @@
 body {
     background-image: url('../images/backgroundImage.jpg');
-    background-position: center center;
-    height: 50rem;
+    background-position: center;
+    height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.card-body, .d-block {
+.card-body, .d-flex {
     background-color: #000957;
 }
 
-.card-title, .d-block {
+.card-title, .d-flex {
    color: #EBE645;
 }
 
@@ -20,7 +20,6 @@ body {
     border-color: whitesmoke;
 }
 
-.d-block {
+.d-flex {
     border-radius: 2%;
 }
-
