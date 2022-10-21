@@ -58,10 +58,16 @@ class UserController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine): Response
     {
-        $user = new User($userPasswordHasher);
+        $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
@@ -83,21 +89,22 @@ class UserController extends AbstractController
         return $this->redirectToRoute("user-home");
     }
 
-    // #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
-    // public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
-    // {
-    //     $form = $this->createForm(UserType::class, $user($this->passwordHasher));
-    //     $form->handleRequest($request);
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $em = $doctrine->getManager();
-    //         $em->persist($user);
-    //         $em->flush();
-    //         return $this->redirectToRoute("user-home");
-    //     }
-    //     return $this->render('user/form.html.twig', [
-    //         "user_form" => $form->createView()
-    //     ]);
-    // }
+    #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
+    public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordHasher->hashPassword($user, $form->get('password')->getData()));
+            $em = $doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute("user-home");
+        }
+        return $this->render('user/form.html.twig', [
+            "user_form" => $form->createView()
+        ]);
+    }
     // dupliquer l'utilisateur en vidant le champ password et vérifier si le mot de passe est vide ou non -> si vide rien -> si remplis je hash le password 
     // pour que le champ password requis ne soit pas un probleme checkb les conditions du UserType
 

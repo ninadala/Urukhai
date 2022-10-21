@@ -47,11 +47,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Franchise::class, orphanRemoval: false)]
     private Collection $franchises;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->passwordHasher = $passwordHasher;
-    
-    }
 
     public function getId(): ?int
     {
@@ -166,7 +161,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $this->passwordHasher->hashPassword($this, $password);
+        $this->password =  $password;
 
         return $this;
     }
