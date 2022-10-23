@@ -52,6 +52,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/permission">Permissions</a>
                         </li>
+                        {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/fiche/{{app.user.id}}">Mon Compte</a>
+                        </li>
+                        {% endif %}
                     </ul>
 
                     Bienvenue {{app.user.username}}

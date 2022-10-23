@@ -18,6 +18,10 @@
         <span class="badge bg-warning rounded-pill">
             <a href="{{ path('edit-user', {'id':user.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
         </span>
+        {% else %}
+        <span class="badge bg-warning rounded-pill">
+            <a href="{{ path('editSelf-user', {'id':user.id}) }}" class="btn btn-warning">Modifier le mot de passe</a>
+        </span>    
         {% endif %}
 
         {% if user.roles[0] == 'ROLE_USER' %}

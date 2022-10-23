@@ -93,6 +93,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -108,9 +109,24 @@ class UserController extends AbstractController
             "user_form" => $form->createView()
         ]);
     }
-    // dupliquer l'utilisateur en vidant le champ password et vérifier si le mot de passe est vide ou non -> si vide rien -> si remplis je hash le password 
-    // pour que le champ password requis ne soit pas un probleme checkb les conditions du UserType
 
+    #[Route('/user/edit/Self{id<\d+>}', name:"editSelf-user")]
+    public function updateSelf(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordHasher->hashPassword($user, $form->get('password')->getData()));
+            $em = $doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute("home");
+        }
+        return $this->render('user/formSelf.html.twig', [
+            "user_form" => $form->createView()
+        ]);
+    }
+   
     #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
     public function fiche(int $id, ManagerRegistry $doctrine): Response
     {
