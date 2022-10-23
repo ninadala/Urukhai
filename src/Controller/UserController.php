@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,11 +83,12 @@ class UserController extends AbstractController
 
     #[Route('/user/delete/{id<\d+>}', name:"delete-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(User $user, ManagerRegistry $doctrine): Response
+    public function delete(User $user, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
     {
         $em = $doctrine->getManager();
         $em->remove($user);
         $em->flush();
+        $email->sendEmailDeleteUser($mailer, $user);
 
         return $this->redirectToRoute("user-home");
     }

@@ -49,6 +49,21 @@ class EmailController extends AbstractController
         $mailer->send($email);
     }
 
+    public function sendEmailDeleteUser(MailerInterface $mailer, User $user)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Suppression utilisateur-trice')
+        ->text('A bientôt chez URUKHAI')
+        ->html('
+        <h1>A bientôt chez URUKHAI</h1>
+        <p>Votre compte utilisateur a été supprimé par un administrateur URUKHAI</p></br>
+        ');
+
+        $mailer->send($email);
+    }
+
     // public function sendEmailNewStructure(MailerInterface $mailer, User $user)
     // {
     //     $email = (new Email())
