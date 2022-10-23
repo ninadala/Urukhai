@@ -57,8 +57,7 @@ class UserController extends AbstractController
 
     #[Route('/user/new', name:"new-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, EmailController
-    $email, MailerInterface $mailer): Response
+    public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, EmailController $email, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -94,7 +93,7 @@ class UserController extends AbstractController
 
     #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
+    public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer, EmailController $email): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -103,6 +102,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
+            $email->sendEmailEditUser($mailer, $user);
             return $this->redirectToRoute("user-home");
         }
         return $this->render('user/form.html.twig', [
