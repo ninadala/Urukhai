@@ -8,9 +8,16 @@
 {% block body %}
 <div class="d-flex mt-5">
     {{ form_start(user_form, {'attr': {'class': 'container'}})}}
-    {{ form_row(user_form.username, { 'attr':{'class':'d-none'}})}}
-    {{ form_row(user_form.lastname, { 'attr':{'class':'d-none'}})}}
-    {{ form_row(user_form.firstname, { 'attr':{'class':'d-none'}})}}
+    
+    {{ form_label(user_form.username, 'username', { 'label_attr':{'class':'d-none'}})}}
+    {{ form_widget(user_form.username, { 'attr':{'class':'d-none'}})}}
+
+    {{ form_label(user_form.lastname, 'lastname', { 'label_attr':{'class':'d-none'}})}}
+    {{ form_widget(user_form.lastname, { 'attr':{'class':'d-none'}})}}
+
+    {{ form_label(user_form.firstname, 'firstname', { 'label_attr':{'class':'d-none'}})}}
+    {{ form_widget(user_form.firstname, { 'attr':{'class':'d-none'}})}}
+    
     {{ form_label(user_form.password)}}
     <div class="input-group">
             {{form_widget(user_form.password)}}
@@ -20,8 +27,13 @@
             </span>
     </div>
     {{ form_errors(user_form.password)}}
-    {{ form_row(user_form.email, { 'attr':{'class':'d-none'}})}}
-    {{ form_row(user_form.roles, { 'attr':{'class':'d-none'}})}}
+
+    {{ form_label(user_form.email, 'email', { 'label_attr':{'class':'d-none'}})}}
+    {{ form_widget(user_form.email, { 'attr':{'class':'d-none'}})}}
+
+    {{ form_label(user_form.roles, 'roles', { 'label_attr':{'class':'d-none'}})}}
+    {{ form_widget(user_form.roles, { 'attr':{'class':'d-none'}})}}
+
     {{ form_rest(user_form)}}
     <input class="btn btn-success mt-3" type="submit" value="Ok" id="btnSubmit">
 </div>
