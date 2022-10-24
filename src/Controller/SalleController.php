@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Franchise;
 use App\Entity\Permission;
 use App\Entity\Salle;
-use App\Form\FranchiseType;
 use App\Form\SalleType;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

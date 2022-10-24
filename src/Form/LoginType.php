@@ -16,15 +16,18 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                "label" => "Nom d'utilisateur",
-                "required" => true,
-                "constraints" => [new NotBlank(["message" => "Le nom d'utilisateur ne peut pas être vide !"])]
+                "label"           => "Nom d'utilisateur",
+                "required"        => true,
+                "constraints"     => [
+                    new NotBlank([
+                        "message" => "Le nom d'utilisateur ne peut pas être vide !"])]
             ])
             ->add('password', PasswordType::class, [
-                "label" => "Mot de passe",
-                "required" => true,
-                "constraints" => [
-                    new NotBlank(["message" => "Le mot de passe ne peut pas être vide !"])
+                "label"           => "Mot de passe",
+                "required"        => true,
+                "constraints"     => [
+                    new NotBlank([
+                        "message" => "Le mot de passe ne peut pas être vide !"])
                 ]
             ])
         ;

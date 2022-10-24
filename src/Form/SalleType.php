@@ -8,7 +8,6 @@ use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,38 +18,41 @@ class SalleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // $sallePermissions = $options['salle_permission'];
         
         $builder
             ->add('name', TextType::class, [
-                "label" => "Nom",
-                "required" => true,
-                "constraints" => [new Length(["min" => 3, "max" => 60, "minMessage" => "Le champ nom ne peut pas contenir moins de 3 caractères", "maxMessage" => "Le champ nom ne peut pas contenir plus de 60 caractères"])]
+                "label"          => "Nom",
+                "required"       => true,
+                "constraints"    => [new Length([
+                    "min"        => 3, 
+                    "max"        => 60, 
+                    "minMessage" => "Le champ nom ne peut pas contenir moins de 3 caractères", 
+                    "maxMessage" => "Le champ nom ne peut pas contenir plus de 60 caractères"])]
             ])
             ->add('address', TextType::class, [
-                "label" => "Adresse postale",
-                "required" => true
+                "label"          => "Adresse postale",
+                "required"       => true
             ])
             ->add('capacity', IntegerType::class, [
-                "label" => "Capacité de la salle",
-                "required" => true
+                "label"          => "Capacité de la salle",
+                "required"       => true
             ])
             ->add('franchise', EntityType::class, [
-                'class' => Franchise::class,
-                'choice_label'=> 'name',
-                'disabled' => true
+                'class'          => Franchise::class,
+                'choice_label'   => 'name',
+                'disabled'       => true
             ])
             ->add('user', EntityType::class, [
-                'label' => 'Administrateur',
-                'class' => User::class,
-                'choice_label'=> 'username'
+                'label'          => 'Administrateur',
+                'class'          => User::class,
+                'choice_label'   => 'username'
             ])
             ->add('permissions', EntityType::class, [
-                'label' => 'Permissions',
-                'class' => Permission::class,
-                'choice_label' => 'name',
-                'expanded'=> true,
-                'multiple' => true
+                'label'          => 'Permissions',
+                'class'          => Permission::class,
+                'choice_label'   => 'name',
+                'expanded'       => true,
+                'multiple'       => true
             ]);
     }
 

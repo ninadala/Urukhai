@@ -20,25 +20,30 @@ class FranchiseType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, [
-                "label" => "Nom",
-                "required" => true,
-                "constraints" => [new Length(["min" => 5, "max" => 60, "minMessage" => "Le champ nom ne peut pas être vide", "maxMessage" => "Le champ nom ne peut pas faire plus de 60 caractères"])]
+                "label"              => "Nom",
+                "required"           => true,
+                "constraints"        => [
+                    new Length([
+                        "min"        => 5, 
+                        "max"        => 60, 
+                        "minMessage" => "Le champ nom ne peut pas être vide", 
+                        "maxMessage" => "Le champ nom ne peut pas faire plus de 60 caractères"])]
             ])
             ->add('user', EntityType::class, [
-                'label' =>  "Administrateur",
-                'class' => User::class,
-                'choice_label'=> 'username'
+                'label'              =>  "Administrateur",
+                'class'              => User::class,
+                'choice_label'       => 'username'
             ])
             ->add("activated", CheckboxType::class, [
-                "label" => "Active ?",
-                "required" => false
+                "label"              => "Active ?",
+                "required"           => false
             ])
             ->add('permissions', EntityType::class, [
-                'label' => 'Permissions',
-                'class' => Permission::class,
-                'choice_label' => 'name',
-                'expanded'=> true,
-                'multiple' => true
+                'label'              => 'Permissions',
+                'class'              => Permission::class,
+                'choice_label'       => 'name',
+                'expanded'           => true,
+                'multiple'           => true
             ]);
     }
 

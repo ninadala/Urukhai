@@ -21,50 +21,55 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                "label" => "Nom d'utilisateur",
-                "required" => true,
-                "constraints" => [new NotBlank(["message" => "Le nom d'utilisateur ne peut pas être vide !"])]
+                "label"          => "Nom d'utilisateur",
+                "required"       => true,
+                "constraints"    => [new NotBlank(["message" => "Le nom d'utilisateur ne peut pas être vide !"])]
             ])
             ->add('lastname', TextType::class, [
-                "label" => "Nom",
-                "required" =>true,
-                "constraints" => [ new Length(
-                    ["min" => 2, 
-                    "max" => 180, 
+                "label"          => "Nom",
+                "required"       => true,
+                "constraints"    => [ new Length(
+                    ["min"       => 2, 
+                    "max"        => 180, 
                     "minMessage" => "Ce champ ne peut pas comporter moins de 2 caractères", 
                     "maxMessage" => "Ce champ ne peut pas comporter plus de 180 caractères !"]
                 )]
             ])
             ->add('firstname', TextType::class, [
-                "label" => "Prénom",
-                "required" => true,
-                "constraints" => [ new Length(
-                    ["min" => 2, 
-                    "max" => 180, 
+                "label"          => "Prénom",
+                "required"       => true,
+                "constraints"    => [ new Length(
+                    ["min"       => 2, 
+                    "max"        => 180, 
                     "minMessage" => "Ce champ ne peut pas comporter moins de 2 caractères", 
                     "maxMessage" => "Ce champ ne peut pas comporter plus de 180 caractères !"]
                 )]
             ])
             ->add('email', EmailType::class, [
-                "label" => "Email",
-                "required" => true,
-                "constraints" => [ new Email(["message" => "Vous devez entrer un email valide"])]
+                "label"          => "Email",
+                "required"       => true,
+                "constraints"    => [ new Email(["message" => "Vous devez entrer un email valide"])]
             ])
             ->add('roles', ChoiceType::class, [
-                'label' => 'Rôles',
-                'required' => true,
-                'expanded' => false,
-                'multiple' => false,
-                'choices' => [
+                'label'          => 'Rôles',
+                'required'       => true,
+                'expanded'       => false,
+                'multiple'       => false,
+                'choices'        => [
                     'Admin URUKHAI' => 'ROLE_ADMIN',
-                    'Client' => 'ROLE_USER'
+                    'Client'        => 'ROLE_USER'
                 ]
             ])
             ->add('password', PasswordType::class, [
-                "label" => "Mot de passe",
-                "required" => true,
-                "constraints" => [
-                    new NotBlank(["message" => "Le mot de passe ne peut pas être vide !"])
+                "label"          => "Mot de passe",
+                "required"       => true,
+                "constraints"    => [
+                    new Length([
+                    "min"        => 10,
+                    "minMessage" => "Votre mot de passe doit contenir au moins 14 caractères"
+                    ]),
+                    new NotBlank([
+                        "message" => "Le mot de passe ne peut pas être vide !"])
                 ]
             ])
         ;

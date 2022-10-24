@@ -6,10 +6,8 @@ use App\Entity\Franchise;
 use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Annotation\Route;
 
 class EmailController extends AbstractController
 {
@@ -43,8 +41,8 @@ class EmailController extends AbstractController
         ->text('Bienvenue chez URUKHAI')
         ->html('
         <h1>Bienvenue chez URUKHAI</h1>
-        <p>Votre compte utilisateur a été modifié par un administrateur URUKHAI</p></br>
-        <p>Vous pouvez retrouver ces changement en vous connectant sur notre plateforme :</p>
+        <p>Votre compte utilisateur a été modifié par un administrateur URUKHAI</br>
+        Vous pouvez retrouver ces changements en vous connectant sur notre plateforme :</p>
         <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
         ');
 
@@ -89,8 +87,8 @@ class EmailController extends AbstractController
         ->subject('Modification de votre structure')
         ->html('
         <h1>Modification de votre franchise : '.$franchise->getName().'</h1>
-        <p>Les informations ou les permissions de votre structure on été modifié par un administrateur URUKHAI</br>
-        Vous pouvez retrouver ces changement en vous connectant sur notre plateforme :</p>
+        <p>Les informations ou les permissions de votre structure ont été modifiées par un administrateur URUKHAI</br>
+        Vous pouvez retrouver ces changements en vous connectant sur notre plateforme :</p>
         <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
         ');
 
@@ -106,7 +104,7 @@ class EmailController extends AbstractController
         ->text('A bientôt chez URUKHAI')
         ->html('
         <h1>Suppression de votre franchise : '.$franchise->getName().'</h1>
-        <p>Votre structure a été supprimé par un administrateur URUKHAI</p></br>
+        <p>Votre structure a été supprimée par un administrateur URUKHAI</p></br>
         ');
 
         $mailer->send($email);
@@ -136,8 +134,8 @@ class EmailController extends AbstractController
         ->subject('Modification de votre structure')
         ->html('
         <h1>Modification de votre salle : '.$salle->getName().'</h1>
-        <p>Les informations ou les permissions de votre structure on été modifié par un administrateur URUKHAI</br>
-        Vous pouvez retrouver ces changement en vous connectant sur notre plateforme :</p>
+        <p>Les informations ou les permissions de votre structure ont été modifiées par un administrateur URUKHAI</br>
+        Vous pouvez retrouver ces changements en vous connectant sur notre plateforme :</p>
         <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
         ');
 
@@ -153,7 +151,7 @@ class EmailController extends AbstractController
         ->text('A bientôt chez URUKHAI')
         ->html('
         <h1>Suppression de votre salle : '.$salle->getName().'</h1>
-        <p>Votre structure a été supprimé par un administrateur URUKHAI</p></br>
+        <p>Votre structure a été supprimée par un administrateur URUKHAI</p></br>
         ');
 
         $mailer->send($email);
