@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SalleController extends AbstractController
@@ -28,7 +29,7 @@ class SalleController extends AbstractController
 
     #[Route('/salle/new/{franchise}', name: "create-salle", requirements: ['franchise' => '\d+'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Franchise $franchise, Request $request, ManagerRegistry $doctrine) : Response
+    public function create(Franchise $franchise, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
     {
         $salle = new Salle();
         $salle->setFranchise($franchise);
@@ -39,6 +40,8 @@ class SalleController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($salle);
             $em->flush();
+            $user = $salle->getUser();
+            $email->sendEmailNewSalle($mailer, $user, $salle);
             return $this->redirectToRoute('salle-home');
         }
         return $this->render('salle/form.html.twig', [
@@ -50,24 +53,28 @@ class SalleController extends AbstractController
 
     #[Route('/salle/delete/{id<\d+>}', name:"delete-salle")]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Salle $salle, ManagerRegistry $doctrine) : Response
+    public function delete(Salle $salle, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
     {
         $em = $doctrine->getManager();
         $em->remove($salle);
         $em->flush();
+        $user = $salle->getUser();
+        $email->sendEmailDeleteSalle($mailer, $user, $salle);
 
         return $this->redirectToRoute("salle-home");
     }
 
     #[Route('/salle/edit/{id<\d+>}', name:"edit-salle")]
     #[IsGranted('ROLE_ADMIN')]
-    public function update(Salle $salle, Request $request, ManagerRegistry $doctrine) : Response
+    public function update(Salle $salle, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
     {
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
+            $user = $salle->getUser();
+            $email->sendEmailEditSalle($mailer, $user, $salle);
             return $this->redirectToRoute('salle-home');
         }
         return $this->render('salle/form.html.twig', [

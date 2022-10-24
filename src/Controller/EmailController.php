@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Franchise;
+use App\Entity\Salle;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,27 +59,104 @@ class EmailController extends AbstractController
         ->subject('Suppression utilisateur-trice')
         ->text('A bientôt chez URUKHAI')
         ->html('
-        <h1>A bientôt chez URUKHAI</h1>
         <p>Votre compte utilisateur a été supprimé par un administrateur URUKHAI</p></br>
         ');
 
         $mailer->send($email);
     }
 
-    // public function sendEmailNewStructure(MailerInterface $mailer, User $user)
-    // {
-    //     $email = (new Email())
-    //     ->from('nina.sellal@gmail.com')
-    //     ->to($user->getEmail())
-    //     ->subject('Création de votre structure')
-    //     ->text('Votre structure a été créée')
-    //     ->html('
-    //     <h1>Votre structure : </h1>
-    //     <p> Les informations ou permissions liées à votre structure ont été mises à jour par un administrateur URUKHAI</p></br>
-    //     <p>Vous pouvez retrouver toutes les informations concernant vos structures en suivant le lien ci-dessous :</p>
-    //     <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
-    //     ');
+    public function sendEmailNewFranchise(MailerInterface $mailer, User $user, Franchise $franchise)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Création de votre structure')
+        ->html('
+        <h1>Création de votre franchise : '.$franchise->getName().'</h1>
+        <p>Votre structure a bien été créée par un administrateur URUKHAI</br>
+        Vous pouvez retrouver toutes les informations concernant vos structures en suivant le lien ci-dessous :</p>
+        <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
+        ');
 
-    //     $mailer->send($email);
-    // }
+        $mailer->send($email);
+    }
+
+    public function sendEmailEditFranchise(MailerInterface $mailer, User $user, Franchise $franchise)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Modification de votre structure')
+        ->html('
+        <h1>Modification de votre franchise : '.$franchise->getName().'</h1>
+        <p>Les informations ou les permissions de votre structure on été modifié par un administrateur URUKHAI</br>
+        Vous pouvez retrouver ces changement en vous connectant sur notre plateforme :</p>
+        <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
+        ');
+
+        $mailer->send($email);
+    }
+
+    public function sendEmailDeleteFranchise(MailerInterface $mailer, User $user, Franchise $franchise)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Suppression de votre structure')
+        ->text('A bientôt chez URUKHAI')
+        ->html('
+        <h1>Suppression de votre franchise : '.$franchise->getName().'</h1>
+        <p>Votre structure a été supprimé par un administrateur URUKHAI</p></br>
+        ');
+
+        $mailer->send($email);
+    }
+
+    public function sendEmailNewSalle(MailerInterface $mailer, User $user, Salle $salle)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Création de votre structure')
+        ->html('
+        <h1>Création de votre salle : '.$salle->getName().'</h1>
+        <p>Votre structure a bien été créée par un administrateur URUKHAI</br>
+        Vous pouvez retrouver toutes les informations concernant vos structures en suivant le lien ci-dessous :</p>
+        <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
+        ');
+
+        $mailer->send($email);
+    }
+
+    public function sendEmailEditSalle(MailerInterface $mailer, User $user, Salle $salle)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Modification de votre structure')
+        ->html('
+        <h1>Modification de votre salle : '.$salle->getName().'</h1>
+        <p>Les informations ou les permissions de votre structure on été modifié par un administrateur URUKHAI</br>
+        Vous pouvez retrouver ces changement en vous connectant sur notre plateforme :</p>
+        <a href="https://www.urukhai.ninasellal.fr" target="_blank" title="site URUKHAI">www.urukhai.ninasellal.fr</a>
+        ');
+
+        $mailer->send($email);
+    }
+
+    public function sendEmailDeleteSalle(MailerInterface $mailer, User $user, Salle $salle)
+    {
+        $email = (new Email())
+        ->from('nina.sellal@gmail.com')
+        ->to($user->getEmail())
+        ->subject('Suppression de votre structure')
+        ->text('A bientôt chez URUKHAI')
+        ->html('
+        <h1>Suppression de votre salle : '.$salle->getName().'</h1>
+        <p>Votre structure a été supprimé par un administrateur URUKHAI</p></br>
+        ');
+
+        $mailer->send($email);
+    }
+
 }

@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\Mailer\MailerInterface;
 
 class FranchiseController extends AbstractController
 {
@@ -27,7 +27,7 @@ class FranchiseController extends AbstractController
 
     #[Route('/franchise/new')]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request, ManagerRegistry $doctrine): Response
+    public function create(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
     {
         $franchise = new Franchise();
         $form = $this->createForm(FranchiseType::class, $franchise);
@@ -36,6 +36,8 @@ class FranchiseController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($franchise);
             $em->flush();
+            $user = $franchise->getUser();
+            $email->sendEmailNewFranchise($mailer, $user, $franchise);
             return $this->redirectToRoute('franchise-home');
         }
         return $this->render('franchise/form.html.twig', [
@@ -45,24 +47,29 @@ class FranchiseController extends AbstractController
 
     #[Route('/franchise/delete/{id<\d+>}', name:"delete-franchise")]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Franchise $franchise, ManagerRegistry $doctrine): Response
+    public function delete(Franchise $franchise, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
     {
         $em = $doctrine->getManager();
         $em->remove($franchise);
         $em->flush();
+        $user = $franchise->getUser();
+        $email->sendEmailDeleteFranchise($mailer, $user, $franchise);
 
         return $this->redirectToRoute("franchise-home");
     }
 
     #[Route('/franchise/edit/{id<\d+>}', name:"edit-franchise")]
     #[IsGranted('ROLE_ADMIN')]
-    public function update(Franchise $franchise, Request $request, ManagerRegistry $doctrine): Response
+    public function update(Franchise $franchise, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
     {
         $form = $this->createForm(FranchiseType::class, $franchise);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
+            $user = $franchise->getUser();
+            $email->sendEmailDeleteFranchise($mailer, $user, $franchise);
+
             return $this->redirectToRoute("franchise-home");
         }
         return $this->render('franchise/form.html.twig', [
