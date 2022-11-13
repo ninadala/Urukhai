@@ -47,10 +47,8 @@ class PermissionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
            ->andWhere('p.id NOT IN (:permissionIds)')
            ->setParameter('permissionIds', $permissions_id)
-           ->getQuery()
-           ->getResult()
        ;
-    } // SELECT * FROM permissions WHERE permissions.id NOT IN ([1, 5, 6, 8])
+    } 
 
 //    /**
 //     * @return Permission[] Returns an array of Permission objects

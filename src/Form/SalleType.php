@@ -6,6 +6,7 @@ use App\Entity\Franchise;
 use App\Entity\Permission;
 use App\Entity\Salle;
 use App\Entity\User;
+use App\Repository\PermissionRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -50,6 +51,9 @@ class SalleType extends AbstractType
             ->add('permissions', EntityType::class, [
                 'label'          => 'Permissions',
                 'class'          => Permission::class,
+                'query_builder'  => function(PermissionRepository $pr) use ($options) {
+                    return $pr->findAllWithout($options['franchise_permissions']);
+                },
                 'choice_label'   => 'name',
                 'expanded'       => true,
                 'multiple'       => true
@@ -60,7 +64,7 @@ class SalleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Salle::class,
-            'salle_permissions' => [],
+            'franchise_permissions' => [],
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id' => 'post_item',

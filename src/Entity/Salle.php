@@ -68,7 +68,7 @@ class Salle
         return $this;
     }
 
-        /**
+    /**
      * Get the value of capacity
      */ 
     public function getCapacity()
@@ -122,10 +122,20 @@ class Salle
 
     public function addPermission(Permission $permission): self
     {
-        if (!$this->salle->contains($permission)) {
-            $this->salle->add($permission);
+        if (!$this->permissions->contains($permission)) {
+            $this->permissions->add($permission);
         }
+        return $this;
+    }
 
+    /**
+     * @param Permission[] $permissions
+     */
+    public function addPermissions(array $permissions): self
+    {
+        foreach ($permissions as $permission) {
+            $this->addPermission($permission);
+        }
         return $this;
     }
 

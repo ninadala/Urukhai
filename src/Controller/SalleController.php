@@ -32,10 +32,10 @@ class SalleController extends AbstractController
     {
         $salle = new Salle();
         $salle->setFranchise($franchise);
-        $sallePermissions = $doctrine->getRepository(Permission::class)->findAllWithout($franchise->getPermissions());
-        $form = $this->createForm(SalleType::class, $salle, ['salle_permissions' => $sallePermissions]);
+        $form = $this->createForm(SalleType::class, $salle, ['franchise_permissions' => $franchise->getPermissions()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $salle->addPermissions($franchise->getPermissions()->toArray());
             $em = $doctrine->getManager();
             $em->persist($salle);
             $em->flush();
@@ -45,8 +45,7 @@ class SalleController extends AbstractController
         }
         return $this->render('salle/form.html.twig', [
             "salle_form" => $form->createView(),
-            "franchise_permissions" => $franchise->getPermissions(),
-            "sallePermissions" => $sallePermissions
+            "franchise_permissions" => $franchise->getPermissions()
         ]);
     }
 
