@@ -15,7 +15,7 @@
             
 
             <div class="d-flex centered-element py-4 px-4" style="width: 18rem">
-                <form method="post" class="container">
+                <form action="{{ path('login')}}" method="post" class="container">
                     <label for="username" class="form-label">Nom d'utilisateur</label>
                     <input id="username" type="text" name="_username" value="{{ last_username }}" class="form-control">
                     <label for="password" class="form-label">Mot de Passe</label>

@@ -25,7 +25,7 @@ class FranchiseController extends AbstractController
         ]);
     }
 
-    #[Route('/franchise/new')]
+    #[Route('/franchise/new', name:'create-franchise')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
     {

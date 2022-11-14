@@ -43,7 +43,7 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUserName,
-            'form' => $form->createView()
+            'form_login' => $form->createView()
         ]);
     }
 
@@ -55,7 +55,11 @@ class UserController extends AbstractController
 
     #[Route('/user/new', name:"new-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, EmailController $email, MailerInterface $mailer): Response
+    public function create(UserPasswordHasherInterface $userPasswordHasher, 
+    Request $request, 
+    ManagerRegistry $doctrine, 
+    EmailController $email, 
+    MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -80,7 +84,10 @@ class UserController extends AbstractController
 
     #[Route('/user/delete/{id<\d+>}', name:"delete-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(User $user, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email): Response
+    public function delete(User $user, 
+    ManagerRegistry $doctrine, 
+    MailerInterface $mailer, 
+    EmailController $email): Response
     {
         $em = $doctrine->getManager();
         $em->remove($user);
@@ -92,7 +99,12 @@ class UserController extends AbstractController
 
     #[Route('/user/edit/{id<\d+>}', name:"edit-user")]
     #[IsGranted('ROLE_ADMIN')]
-    public function update(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer, EmailController $email): Response
+    public function update(User $user, 
+    Request $request, 
+    ManagerRegistry $doctrine, 
+    UserPasswordHasherInterface $passwordHasher, 
+    MailerInterface $mailer, 
+    EmailController $email): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

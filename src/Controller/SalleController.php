@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Franchise;
-use App\Entity\Permission;
 use App\Entity\Salle;
 use App\Form\SalleType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,11 +27,16 @@ class SalleController extends AbstractController
 
     #[Route('/salle/new/{franchise}', name: "create-salle", requirements: ['franchise' => '\d+'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Franchise $franchise, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
+    public function create(Franchise $franchise, 
+    Request $request, 
+    ManagerRegistry $doctrine, 
+    MailerInterface $mailer, 
+    EmailController $email) : Response
     {
         $salle = new Salle();
         $salle->setFranchise($franchise);
-        $form = $this->createForm(SalleType::class, $salle, ['franchise_permissions' => $franchise->getPermissions()]);
+        $form = $this->createForm(SalleType::class, $salle, 
+        ['franchise_permissions' => $franchise->getPermissions()]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $salle->addPermissions($franchise->getPermissions()->toArray());
@@ -51,7 +55,10 @@ class SalleController extends AbstractController
 
     #[Route('/salle/delete/{id<\d+>}', name:"delete-salle")]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Salle $salle, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
+    public function delete(Salle $salle, 
+    ManagerRegistry $doctrine, 
+    MailerInterface $mailer, 
+    EmailController $email) : Response
     {
         $em = $doctrine->getManager();
         $em->remove($salle);
@@ -64,7 +71,11 @@ class SalleController extends AbstractController
 
     #[Route('/salle/edit/{id<\d+>}', name:"edit-salle")]
     #[IsGranted('ROLE_ADMIN')]
-    public function update(Salle $salle, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
+    public function update(Salle $salle, 
+    Request $request, 
+    ManagerRegistry $doctrine, 
+    MailerInterface $mailer, 
+    EmailController $email) : Response
     {
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
