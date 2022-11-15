@@ -52,7 +52,7 @@ class SalleType extends AbstractType
                 'label'          => 'Permissions',
                 'class'          => Permission::class,
                 'query_builder'  => function(PermissionRepository $pr) use ($options) {
-                    return $pr->findAllWithout($options['franchise_permissions']);
+                    return $pr->findAllWithout($options ['franchise_permissions']);
                 },
                 'choice_label'   => 'name',
                 'expanded'       => true,
