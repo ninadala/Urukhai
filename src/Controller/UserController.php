@@ -74,6 +74,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'L\'utilisateur a bien été créé !' );
             $email->sendEmailNewUser($mailer, $user);
             return $this->redirectToRoute('user-home');
         }
@@ -92,6 +93,7 @@ class UserController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($user);
         $em->flush();
+        $this->addFlash('success', 'L\'utilisateur a bien été supprimé !' );
         $email->sendEmailDeleteUser($mailer, $user);
 
         return $this->redirectToRoute("user-home");
@@ -113,6 +115,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'L\'utilisateur a bien été mis à jour !' );
             $email->sendEmailEditUser($mailer, $user);
             return $this->redirectToRoute("user-home");
         }
@@ -131,6 +134,7 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'Votre mot de passe a bien été mis à jour !' );
             return $this->redirectToRoute("home");
         }
         return $this->render('user/formSelf.html.twig', [

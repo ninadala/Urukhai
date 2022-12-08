@@ -36,6 +36,7 @@ class FranchiseController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($franchise);
             $em->flush();
+            $this->addFlash('success', 'La franchise a bien été créée !' );
             $user = $franchise->getUser();
             $email->sendEmailNewFranchise($mailer, $user, $franchise);
             return $this->redirectToRoute('franchise-home');
@@ -52,6 +53,7 @@ class FranchiseController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($franchise);
         $em->flush();
+        $this->addFlash('success', 'La franchise a bien été supprimée !' );
         $user = $franchise->getUser();
         $email->sendEmailDeleteFranchise($mailer, $user, $franchise);
 
@@ -68,6 +70,7 @@ class FranchiseController extends AbstractController
             $em = $doctrine->getManager();
             $em->flush();
             $user = $franchise->getUser();
+            $this->addFlash('success', 'La franchise a bien été mise à jour !' );
             $email->sendEmailDeleteFranchise($mailer, $user, $franchise);
 
             return $this->redirectToRoute("franchise-home");

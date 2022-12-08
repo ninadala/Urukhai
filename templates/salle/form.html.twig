@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+{{ parent() }}
     <div class="d-flex mt-5">
     {{ form_start(salle_form, {'attr': {'class': 'container'}}) }}
     {{ form_row(salle_form.name) }}

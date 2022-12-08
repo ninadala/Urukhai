@@ -34,6 +34,7 @@ class PermissionController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($permission);
             $em->flush();
+            $this->addFlash('success', 'La permission a bien été créée !' );
             return $this->redirectToRoute('permission-home');
         }
         return $this->render('permission/form.html.twig', [
@@ -48,6 +49,7 @@ class PermissionController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($permission);
         $em->flush();
+        $this->addFlash('success', 'La permission a bien été supprimée !' );
 
         return $this->redirectToRoute("permission-home");
     }
@@ -61,6 +63,7 @@ class PermissionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
+            $this->addFlash('success', 'La permission a bien été mise à jour !' );
             return $this->redirectToRoute('permission-home');
         }
         return $this->render('permission/form.html.twig', [

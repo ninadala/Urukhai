@@ -38,6 +38,7 @@ class SalleController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($salle);
             $em->flush();
+            $this->addFlash('success', 'La salle a bien été créée !' );
             $user = $salle->getUser();
             $email->sendEmailNewSalle($mailer, $user, $salle);
             return $this->redirectToRoute('salle-home');
@@ -55,8 +56,10 @@ class SalleController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($salle);
         $em->flush();
+        $this->addFlash('success', 'La salle a bien été supprimée !' );
         $user = $salle->getUser();
         $email->sendEmailDeleteSalle($mailer, $user, $salle);
+        
 
         return $this->redirectToRoute("salle-home");
     }
@@ -72,6 +75,7 @@ class SalleController extends AbstractController
             $salle->addPermissions($franchise->getPermissions()->toArray());
             $em = $doctrine->getManager();
             $em->flush();
+            $this->addFlash('success', 'La salle a bien été mise à jour !' );
             $user = $salle->getUser();
             $email->sendEmailEditSalle($mailer, $user, $salle);
             return $this->redirectToRoute('salle-home');

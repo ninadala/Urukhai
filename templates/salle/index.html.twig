@@ -5,9 +5,9 @@
         <link rel="stylesheet" href="{{ asset('style/listsPages.css')}}">
 {% endblock %}
 
-{% block body %}    
+{% block body %} 
+{{ parent() }}   
 <div class="container mt-5">
-    
     <div class="d-flex my-3 ms-4">
         <div class="dropdown d-flex ms-5">
             <button class="btn btn-succes dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="filterButton">
