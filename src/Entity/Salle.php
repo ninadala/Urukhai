@@ -141,7 +141,7 @@ class Salle
 
     public function removePermission(Permission $permission): self
     {
-        $this->permission->removeElement($permission);
+        $this->$permission->removeElement($permission);
 
         return $this;
     }

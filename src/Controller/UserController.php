@@ -13,7 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class UserController extends AbstractController
 {
@@ -125,8 +127,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit/Self{id<\d+>}', name:"editSelf-user")]
+
     public function updateSelf(User $user, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
+        if($user->getId() !== $this->getUser()->getId()) throw new AccessDeniedException();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -145,6 +149,7 @@ class UserController extends AbstractController
     #[Route('/user/fiche/{id<\d+>}', name:'fiche-user')]
     public function fiche(int $id, ManagerRegistry $doctrine): Response
     {
+        if($id !== $this->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) throw new AccessDeniedException();
         $repository = $doctrine->getRepository(User::class);
         $user = $repository->find($id);
         $salles = $user->getSalles();

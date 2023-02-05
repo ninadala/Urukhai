@@ -62,10 +62,3 @@ const filterShowClients = () => {
         item.classList.contains("list-group-item-primary") ? item.classList.add("d-none") : item.classList.remove("d-none")
     })
 }
-
-const filterAllUsers = () => {
-    const listItems = document.querySelectorAll(".list-group-item")
-    listItems.forEach((item) => {
-        item.classList.contains("list-group-item") ? item.classList.remove("d-none") : item.classList.remove("d-none")
-    })
-}
