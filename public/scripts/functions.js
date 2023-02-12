@@ -24,7 +24,7 @@ const filterShowInactive = () => {
 const filter = () => {
     const listItems = document.querySelectorAll(".list-group-item")
     listItems.forEach((item) => {
-        item.classList.contains("list-group-item") ? item.classList.remove("d-none") : item.classList.remove("d-none")
+        item.classList.remove("d-none")
     })
 }
 
@@ -45,7 +45,7 @@ const filterShowInactiveSalles = () => {
 const filterSalles = () => {
     const listCards = document.querySelectorAll("#card-salle")
     listCards.forEach((card) => {
-        card.classList.contains("card") ? card.classList.remove("d-none") : card.classList.remove("d-none")
+        card.classList.remove("d-none")
     })
 }
 
