@@ -27,7 +27,12 @@ class SalleController extends AbstractController
 
     #[Route('/salle/new/{franchise}', name: "create-salle", requirements: ['franchise' => '\d+'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Franchise $franchise, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer, EmailController $email) : Response
+    public function create(
+        Franchise $franchise, 
+        Request $request, 
+        ManagerRegistry $doctrine, 
+        MailerInterface $mailer, 
+        EmailController $email) : Response
     {
         $salle = new Salle();
         $salle->setFranchise($franchise);

@@ -223,7 +223,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeFranchise(Franchise $franchise): self
     {
-        if ($this->franchise->removeElement($franchise)) {
+        if ($this->$franchise->removeElement($franchise)) {
             // set the owning side to null (unless already changed)
             if ($franchise->getUser() === $this) {
                 $franchise->setUser(null);
